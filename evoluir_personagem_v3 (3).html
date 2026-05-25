@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evoluir Personagem — Critical Minis</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#07060A;--bg2:#100D18;--bg3:#1A1528;--bg4:#221C35;--violet:#9B6DFF;--violet2:#BFA0FF;--ember:#5A2E8A;--gold:#C8952A;--gold2:#E8C060;--white:#EAE6FF;--muted:#8A82B5;--dim:#4A4468;--border:rgba(155,109,255,.15);--border2:rgba(155,109,255,.32);--green:#4CAF7D;--green2:#7DFFB3;--red:#FF6B6B;--r:8px}
+*{margin:0;padding:0;box-sizing:border-box}html,body{min-height:100vh;background:var(--bg);color:var(--white);font-family:'EB Garamond',serif;overflow-x:hidden}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg2)}::-webkit-scrollbar-thumb{background:var(--ember);border-radius:3px}
+#particles{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.particle{position:absolute;border-radius:50%;animation:float linear infinite;opacity:0}
+@keyframes float{0%{transform:translateY(100vh) scale(0);opacity:0}10%{opacity:.6}90%{opacity:.3}100%{transform:translateY(-20px) scale(1.2);opacity:0}}
+#app{position:relative;z-index:1;max-width:940px;margin:0 auto;padding:0 20px 80px}
+header{display:flex;align-items:center;justify-content:center;flex-direction:column;padding:36px 0 18px;gap:10px}
+.logo-wrap{display:flex;align-items:center;gap:14px}
+.brand{font-family:'Cinzel',serif;font-size:22px;font-weight:700;letter-spacing:.18em;color:var(--white);line-height:1}
+.brand-sub{font-family:'Inter',sans-serif;font-size:9px;font-weight:600;letter-spacing:.45em;color:var(--violet);text-transform:uppercase;margin-top:3px}
+.htitle{font-family:'Cinzel Decorative',serif;font-size:clamp(18px,3.5vw,30px);font-weight:900;text-align:center;background:linear-gradient(135deg,var(--gold2),var(--violet2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-top:6px}
+.hsub{font-family:'EB Garamond',serif;font-style:italic;font-size:15px;color:var(--muted);text-align:center}
+.prog{padding:18px 0 24px}
+.slabels{display:flex;justify-content:space-between;margin-bottom:8px;gap:2px}
+.slabel{font-family:'Inter',sans-serif;font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);flex:1;text-align:center;transition:color .3s}
+.slabel.act{color:var(--violet2)}.slabel.don{color:var(--violet)}
+.ptrack{height:3px;background:var(--bg3);border-radius:2px;overflow:hidden}
+.pfill{height:100%;background:linear-gradient(90deg,var(--ember),var(--violet),var(--gold));border-radius:2px;transition:width .5s}
+.sdots{display:flex;justify-content:space-between;margin-top:7px}
+.sdot{width:8px;height:8px;border-radius:50%;background:var(--bg4);border:1px solid var(--dim);transition:all .3s}
+.sdot.act{background:var(--violet);border-color:var(--violet2);box-shadow:0 0 8px var(--violet)}.sdot.don{background:var(--ember);border-color:var(--violet)}
+.screen{display:none;animation:fsld .4s ease}.screen.active{display:block}
+@keyframes fsld{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.ey{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.38em;color:var(--violet);text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:10px}
+.ey::before{content:'';display:block;width:24px;height:1px;background:var(--violet)}
+.st{font-family:'Cinzel Decorative',serif;font-size:clamp(18px,3.5vw,28px);font-weight:900;color:var(--white);margin-bottom:6px;line-height:1.1}
+.sd{font-family:'EB Garamond',serif;font-style:italic;font-size:15px;color:var(--muted);margin-bottom:20px;max-width:640px;line-height:1.6}
+.fw{position:relative;margin-bottom:16px}
+.fl{position:absolute;top:-10px;left:16px;background:var(--bg);padding:0 6px;font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.2em;color:var(--violet);text-transform:uppercase;z-index:1}
+.fi{width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:14px 18px;font-family:'Cinzel',serif;font-size:16px;font-weight:700;color:var(--white);outline:none;transition:border-color .2s}
+.fi:focus{border-color:var(--violet);box-shadow:0 0 0 3px rgba(155,109,255,.15)}
+.fi::placeholder{color:var(--dim);font-weight:400;font-size:13px}
+select.fi{cursor:pointer}select.fi option{background:var(--bg2)}
+.fi.sm{font-size:14px;padding:11px 15px;font-family:'Inter',sans-serif;font-weight:600}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.g6{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+@media(max-width:600px){.g2,.g3{grid-template-columns:1fr}.g6{grid-template-columns:repeat(3,1fr)}}
+.panel{background:linear-gradient(135deg,var(--bg2),var(--bg3));border:1px solid var(--border2);border-radius:var(--r);padding:20px;margin-bottom:16px}
+.ptitle{font-family:'Cinzel',serif;font-size:13px;font-weight:700;color:var(--gold2);letter-spacing:.08em;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.sbox{background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:10px 6px;text-align:center}
+.sbox-lbl{font-family:'Inter',sans-serif;font-size:9px;font-weight:700;letter-spacing:.25em;color:var(--muted);text-transform:uppercase;margin-bottom:4px}
+.sbox-val{font-family:'Cinzel',serif;font-size:22px;font-weight:700;color:var(--white);line-height:1}
+.sbox input{width:100%;background:transparent;border:none;outline:none;font-family:'Cinzel',serif;font-size:20px;font-weight:700;color:var(--white);text-align:center}
+.sbox-mod{font-family:'Inter',sans-serif;font-size:11px;color:var(--violet);margin-top:2px}
+.cc{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:16px 14px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.cc:hover{border-color:var(--border2);transform:translateY(-2px);box-shadow:0 6px 18px rgba(90,46,138,.25)}
+.cc.sel{border-color:var(--violet);background:linear-gradient(135deg,var(--bg3),var(--bg4));box-shadow:0 0 16px rgba(155,109,255,.2)}
+.cc.sel::after{content:'✦';position:absolute;top:8px;right:10px;color:var(--gold2);font-size:12px}
+.cc-icon{font-size:24px;margin-bottom:6px;display:block}
+.cc-name{font-family:'Cinzel',serif;font-size:13px;font-weight:700;color:var(--white);margin-bottom:3px}
+.cc-tag{font-family:'Inter',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;color:var(--violet);text-transform:uppercase;margin-bottom:5px}
+.cc-desc{font-family:'EB Garamond',serif;font-style:italic;font-size:13px;color:var(--muted);line-height:1.5}
+.cc-detail{display:none;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
+.cc-detail.open{display:block}
+.cc-detail p{font-family:'EB Garamond',serif;font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:5px}
+.cc-detail strong{color:var(--violet2);font-style:normal}
+.tag-row{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.tag{font-family:'Inter',sans-serif;font-size:9px;font-weight:700;padding:2px 7px;border-radius:3px;text-transform:uppercase;letter-spacing:.08em}
+.tv{background:rgba(155,109,255,.15);border:1px solid rgba(155,109,255,.3);color:var(--violet2)}
+.tg{background:rgba(200,149,42,.12);border:1px solid rgba(200,149,42,.25);color:var(--gold2)}
+.tgr{background:rgba(76,175,125,.1);border:1px solid rgba(76,175,125,.25);color:var(--green2)}
+.tr{background:rgba(255,107,107,.1);border:1px solid rgba(255,107,107,.25);color:var(--red)}
+.expand-btn{font-family:'Inter',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;color:var(--violet);text-transform:uppercase;background:none;border:none;cursor:pointer;padding:5px 0;margin-top:5px;display:block}
+.cc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:18px}
+.dbox{background:linear-gradient(135deg,rgba(90,46,138,.2),rgba(155,109,255,.07));border:1px solid var(--violet);border-radius:var(--r);padding:18px;margin-bottom:14px;display:flex;align-items:center;gap:14px}
+.dicon{font-size:34px;flex-shrink:0}
+.dq{flex:1}
+.dq p{font-family:'EB Garamond',serif;font-style:italic;font-size:15px;color:var(--muted);margin-bottom:9px;line-height:1.5}
+.drow{display:flex;align-items:center;gap:10px}
+.di{width:68px;background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r);padding:9px 10px;font-family:'Cinzel',serif;font-size:20px;font-weight:700;color:var(--white);text-align:center;outline:none}
+.di:focus{border-color:var(--violet)}
+.fc{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:8px}
+.fc.new{border-color:var(--gold);background:linear-gradient(135deg,var(--bg3),var(--bg4))}
+.fc-name{font-family:'Cinzel',serif;font-size:13px;font-weight:700;color:var(--white);margin-bottom:4px;display:flex;align-items:center;gap:7px}
+.badge{background:var(--gold);color:var(--bg);font-family:'Inter',sans-serif;font-size:8px;font-weight:700;letter-spacing:.1em;padding:2px 6px;border-radius:3px;text-transform:uppercase}
+.fc-desc{font-family:'EB Garamond',serif;font-style:italic;font-size:13px;color:var(--muted);line-height:1.5;margin-bottom:5px}
+.fc-detail{margin-top:8px;padding-top:8px;border-top:1px solid var(--border)}
+.fc-detail p{font-family:'EB Garamond',serif;font-size:13px;color:var(--muted);line-height:1.6}
+.fc-detail strong{color:var(--violet2);font-style:normal}
+.info{background:rgba(155,109,255,.06);border:1px solid rgba(155,109,255,.18);border-radius:var(--r);padding:12px 16px;margin-bottom:12px;font-family:'EB Garamond',serif;font-style:italic;font-size:14px;color:var(--muted);line-height:1.6}
+.info strong{color:var(--violet2);font-style:normal}
+.info.g{background:rgba(200,149,42,.06);border-color:rgba(200,149,42,.18)}.info.g strong{color:var(--gold2)}
+.info.gr{background:rgba(76,175,125,.06);border-color:rgba(76,175,125,.18)}.info.gr strong{color:var(--green2)}
+.stbl{width:100%;border-collapse:collapse;margin-bottom:12px;font-size:12px}
+.stbl th{font-family:'Inter',sans-serif;font-size:8px;font-weight:700;letter-spacing:.18em;color:var(--violet);text-transform:uppercase;padding:6px 8px;text-align:center;border-bottom:1px solid var(--border)}
+.stbl td{font-family:'Cinzel',serif;font-size:12px;color:var(--white);padding:6px 8px;text-align:center;border-bottom:1px solid rgba(155,109,255,.04)}
+.stbl td.hl{color:var(--gold2);font-weight:700}.stbl tr.nr td{background:rgba(200,149,42,.05)}
+.spool{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.stag{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:5px 11px;font-family:'Inter',sans-serif;font-size:10px;font-weight:600;color:var(--muted);cursor:pointer;transition:all .15s}
+.stag:hover{border-color:var(--border2);color:var(--white)}
+.stag.picked{background:rgba(155,109,255,.15);border-color:var(--violet);color:var(--violet2)}
+.stag.oath{background:rgba(200,149,42,.1);border-color:rgba(200,149,42,.3);color:var(--gold2);cursor:default}
+.stag-wrap{position:relative;display:inline-block}
+.stag-tip{display:none;position:absolute;bottom:calc(100% + 6px);left:0;z-index:100;background:var(--bg3);border:1px solid var(--border2);border-radius:6px;padding:10px 13px;min-width:230px;max-width:300px;font-family:'EB Garamond',serif;font-size:12px;color:var(--muted);line-height:1.5;box-shadow:0 8px 24px rgba(0,0,0,.6)}
+.stag-tip strong{color:var(--violet2);font-style:normal;display:block;margin-bottom:4px;font-family:'Cinzel',serif;font-size:12px}
+.stag-wrap:hover .stag-tip{display:block}
+.navb{display:flex;gap:12px;justify-content:flex-end;margin-top:18px}
+.btn{font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:13px 26px;cursor:pointer;border:none;outline:none;transition:all .18s;clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%)}
+.btn-p{background:linear-gradient(135deg,var(--ember),var(--violet));color:#fff;border:1px solid var(--violet)}
+.btn-p:hover{background:linear-gradient(135deg,#7B4FC9,var(--violet2));box-shadow:0 0 18px rgba(155,109,255,.6)}
+.btn-s{background:transparent;border:1px solid rgba(155,109,255,.3);color:var(--muted)}
+.btn-s:hover{border-color:var(--violet);color:var(--white)}
+.btn-g{background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--bg)}
+.btn-g:hover{box-shadow:0 0 18px rgba(200,149,42,.6)}
+.orn{display:flex;align-items:center;gap:12px;margin:16px 0;color:var(--dim);font-size:12px}
+.orn::before,.orn::after{content:'';flex:1;height:1px;background:var(--border)}
+.sheet{background:linear-gradient(160deg,var(--bg2),var(--bg3));border:1px solid var(--border2);border-radius:12px;padding:26px;margin-bottom:18px}
+.shead{text-align:center;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.cname{font-family:'Cinzel Decorative',serif;font-size:clamp(18px,4vw,32px);font-weight:900;background:linear-gradient(135deg,var(--gold2),var(--violet2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:5px}
+.cid{font-family:'Cinzel',serif;font-size:13px;color:var(--muted);letter-spacing:.08em}
+.lvlbadge{display:inline-block;background:linear-gradient(135deg,var(--ember),var(--violet));padding:5px 18px;border-radius:20px;font-family:'Cinzel',serif;font-size:12px;font-weight:700;color:#fff;margin-top:7px}
+.lubanner{background:linear-gradient(135deg,rgba(200,149,42,.18),rgba(232,192,96,.07));border:1px solid var(--gold);border-radius:12px;padding:20px;text-align:center;margin-bottom:18px;animation:glow 2s ease infinite}
+@keyframes glow{0%,100%{box-shadow:0 0 20px rgba(200,149,42,.15)}50%{box-shadow:0 0 36px rgba(200,149,42,.4)}}
+.lubanner h2{font-family:'Cinzel Decorative',serif;font-size:24px;font-weight:900;background:linear-gradient(135deg,var(--gold2),var(--violet2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:4px}
+.lubanner p{font-family:'EB Garamond',serif;font-style:italic;font-size:15px;color:var(--muted)}
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);background:linear-gradient(135deg,var(--ember),var(--violet));color:#fff;padding:11px 22px;border-radius:40px;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;opacity:0;transition:all .3s;z-index:1000;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.hp-track{display:flex;align-items:center;gap:12px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:12px 16px;margin-top:14px}
+.hp-bar{height:6px;background:var(--bg4);border-radius:3px;overflow:hidden;margin-top:4px}
+.hp-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--red),#FF9E9E)}
+</style>
+</head>
+<body>
+<div id="particles"></div>
+<div class="toast" id="toast"></div>
+<div id="app">
+<header>
+  <div class="logo-wrap">
+    <img id="logoImg" src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAI/Aj8DASIAAhEBAxEB/8QAHQABAAICAwEBAAAAAAAAAAAAAAYHBQgDBAkCAf/EAGMQAAEDAwEFAwcFCQgMDAUFAQEAAgMEBREGBxIhMUETUWEIIjJxgZGhFBVCUrEjM2JygrKzwdEJFiRDkqLC0hcYJTRTY2V1k5Sj4TY3REVHVVdkc3SF8DVUVnaDJyiElcPT/8QAGwEBAAIDAQEAAAAAAAAAAAAAAAQFAQIDBgf/xAA7EQACAgEBBQUGBQMDBAMAAAAAAQIDBBEFEiExQRMiUWFxMoGRobHRFCPB4fAGM0I0UvEVJDVyQ4KS/9oADAMBAAIRAxEAPwDTJERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBEVrbD9kU+to6jUuoqz5i0XbQ6SuuUox2gZxcyLPM9CeQJA5nCyk29EZUXJ6IiOidGVuoqWuu9ROy2aftjQ64XSdpMcRPoxtH8ZK7k1g4nwGSo9cHUjq2U0DJWUu9iISuBfu9C4jhk8+HBTrbDr6m1RUUtg0zQfM2jLQXNtduZw3ieDqiX68r+pPIcB1zXyMMIiLBgIiIAi+4YpJpmQwxvkkkcGsYwZc4ngAAOZUm15phmjzS2avmEmodwTXGBhy2hyMtgJ6yYOXdG8G8wUBFkREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAERXd5MuxKp2h3FuoL/HNTaUpJcPcPNdXSDnFGe76zunLnyzGLk9EbRi5PRH35OGwmt1/I3Uuoo56PSkD8Zb5ste8H73H3NzwL+nIceXc8qTahS3N8WzjSAgpNNWkiOdtL5sU0rOAY0D+LZ0+s7Lu5Wl5Ue2Kn0rpuLRWjuxo55YOxjFP5raSnxu5aByJGWt8N53ULTBSbY9iuz69fsd7PyY7nV8/sERFFIwREQBfcEUs8zIII3yyyODGMY0lznE4AAHMldqyWq5Xu7U1ptFFPXV1U8RwQQsLnvcegH/vC232b7NtL7C9Oy6719UQVOoIIt5rWkPbRuI4Rwj6c7uW9ybxx1K61VOx8OR1qqdj4ciGWLSdBsC0IzX+roYanXte0x6ftcgDm0DyOM8g6vaDnuBwOfLXSuqqiurZ62smfPU1EjpZpXnLnvccucT1JJJUl2q66vG0LV9Tf7s8tDvudLTg5ZTQg+axv2k9SSVFFrNrXRcjSbWukeQREWhqEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEXYoaKsrpxBRUs1TKTgNiYXH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yoai60W9jYrNNdDeue5JS05Fy6puFgv2nam1jUNvglcWyQvfJ5u+08A7HIEZGeip2eMxTSRFzHlji3eY7eacHmD1C+EXbMy3lT35LRm91zterQREUQ4k02ZR2yirzerldqOmcxj44IXSee4uaWlxHQAE8+ZXY2pR2u4zx3q23uhqXiJkU1O2T7pw4Bze8YxkcxjPqgaKV+K/I7Hd4c9fM7dr+XuaBctHUz0dVHVUsroponBzHtOC0hcSKMm09UcS3bbrK33bTVU6uqqejrvk0sckb3Boe4xuAczwPd0PsVRIik5OZPJUd/mjrbdKzTe6BERRTkd+wUENyuTKeor6agg9KSad+6GtB4473dwV3R6n02XFj75RNjLSw4kGd0tLffgqgkU/Cz5YiajFPUkU5DpT0XM79+t8VtuL6enuFLXwelHNA/Ic3PDI5g+BXQRFBk03qjg+L4BZXSNXTUOprfWVknZU8M7XyP3S7AHgOJWKRZhJwkpLoIvdaaLlvNZoHVYZPWVtN2zQWtlMhp5gM8AS4YcO7IPrWMpNLaFoJxVVV0FRG05ZHPWRhh9e7xd6uCq1FZS2jGct+dUWyVLKUnrKC1LP1lr+kFFNQWN5llkZ2RqGtLGRN5EMHPOOGeAA5ZVYIiiZWXZlT3pnG22Vr1kERFGOQREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREB//2Q==" style="width:52px;height:52px;object-fit:contain" alt="Critical Minis">
+    <div><div class="brand">CRITICAL MINIS</div><div class="brand-sub">Forje suas lendas</div></div>
+  </div>
+  <div class="htitle">Evoluir Personagem</div>
+  <div class="hsub">Cada nível é uma lenda que se aprofunda. Qual poder desperta em você?</div>
+</header>
+<div class="prog">
+  <div class="slabels" id="slabels"></div>
+  <div class="ptrack"><div class="pfill" id="pfill" style="width:0%"></div></div>
+  <div class="sdots" id="sdots"></div>
+</div>
+<div id="sw"></div>
+</div>
+<script>
+const HD={barbaro:12,bardo:8,clerigo:8,druida:8,feiticeiro:6,guerreiro:10,ladino:8,mago:6,monge:8,paladino:10,patrulheiro:10,bruxo:8};
+const CN={barbaro:'Bárbaro',bardo:'Bardo',clerigo:'Clérigo',druida:'Druida',feiticeiro:'Feiticeiro',guerreiro:'Guerreiro',ladino:'Ladino',mago:'Mago',monge:'Monge',paladino:'Paladino',patrulheiro:'Patrulheiro',bruxo:'Bruxo'};
+const SK=['str','dex','con','int','wis','cha'],SL=['FOR','DES','CON','INT','SAB','CAR'],SF=['Força','Destreza','Constituição','Inteligência','Sabedoria','Carisma'];
+const PB={1:2,2:2,3:2,4:2,5:3,6:3,7:3,8:3,9:4,10:4,11:4,12:4,13:5,14:5,15:5,16:5,17:6,18:6,19:6,20:6};
+const ASI={barbaro:[4,8,12,16,19],bardo:[4,8,12,16,19],clerigo:[4,8,12,16,19],druida:[4,8,12,16,19],feiticeiro:[4,8,12,16,19],guerreiro:[4,6,8,12,14,16,19],ladino:[4,8,10,12,16,19],mago:[4,8,12,16,19],monge:[4,8,12,16,19],paladino:[4,8,12,16,19],patrulheiro:[4,8,12,16,19],bruxo:[4,8,12,16,19]};
+const SL_LVL={bardo:3,clerigo:1,druida:2,feiticeiro:1,guerreiro:3,ladino:3,mago:2,monge:3,paladino:3,patrulheiro:3,bruxo:1};
+const FULL_SLOTS={1:[2,0,0,0,0],2:[3,0,0,0,0],3:[4,2,0,0,0],4:[4,3,0,0,0],5:[4,3,2,0,0],6:[4,3,3,0,0],7:[4,3,3,1,0],8:[4,3,3,2,0],9:[4,3,3,3,1],10:[4,3,3,3,2],11:[4,3,3,3,2],12:[4,3,3,3,2],13:[4,3,3,3,2],14:[4,3,3,3,2],15:[4,3,3,3,2],16:[4,3,3,3,2],17:[4,3,3,3,2],18:[4,3,3,3,3],19:[4,3,3,3,3],20:[4,3,3,3,3]};
+const HALF_SLOTS={2:[2,0,0,0,0],3:[3,0,0,0,0],4:[3,0,0,0,0],5:[4,2,0,0,0],6:[4,2,0,0,0],7:[4,3,0,0,0],8:[4,3,0,0,0],9:[4,3,2,0,0],10:[4,3,2,0,0],11:[4,3,3,0,0],12:[4,3,3,0,0],13:[4,3,3,1,0],14:[4,3,3,1,0],15:[4,3,3,2,0],16:[4,3,3,2,0],17:[4,3,3,3,1],18:[4,3,3,3,1],19:[4,3,3,3,2],20:[4,3,3,3,2]};
+const WL_SLOTS={1:{s:1,l:1},2:{s:2,l:1},3:{s:2,l:2},4:{s:2,l:2},5:{s:2,l:3},6:{s:2,l:3},7:{s:2,l:4},8:{s:2,l:4},9:{s:2,l:5},10:{s:2,l:5},11:{s:3,l:5},12:{s:3,l:5},13:{s:3,l:5},14:{s:3,l:5},15:{s:3,l:5},16:{s:3,l:5},17:{s:4,l:5},18:{s:4,l:5},19:{s:4,l:5},20:{s:4,l:5}};
+const SPELLS_KNOWN={bardo:{1:4,2:5,3:6,4:7,5:8,6:9,7:10,8:11,9:12,10:14,11:15,12:15,13:16,14:18,15:19,16:19,17:20,18:22,19:22,20:22},feiticeiro:{1:2,2:3,3:4,4:5,5:6,6:7,7:8,8:9,9:10,10:11,11:12,12:12,13:13,14:13,15:14,16:14,17:15,18:15,19:15,20:15},bruxo:{1:2,2:3,3:4,4:5,5:6,6:7,7:8,8:9,9:10,10:10,11:11,12:11,13:12,14:12,15:13,16:13,17:14,18:14,19:15,20:15},patrulheiro:{1:0,2:2,3:3,4:3,5:4,6:4,7:5,8:5,9:6,10:6,11:7,12:7,13:8,14:8,15:9,16:9,17:10,18:10,19:11,20:11}};
+const CANTRIPS_KNOWN={bardo:{1:2,4:3,10:4},clerigo:{1:3,4:4,10:5},druida:{1:2,4:3,10:4},feiticeiro:{1:4,4:5,10:6},mago:{1:3,4:4,10:5},bruxo:{1:2,4:3,10:4}};
+
+const FIGHTING_STYLES={
+guerreiro:[
+{n:'Arqueiro',icon:'🏹',tags:['Ranged','+2 Ataque'],short:'+2 em ataques com armas à distância.',desc:'Você ganha +2 em jogadas de ataque feitas com armas de ataque à distância. Ideal para guerreiros que preferem manter distância.'},
+{n:'Defesa',icon:'🛡',tags:['Tanque','+1 CA'],short:'+1 CA ao usar armadura.',desc:'Enquanto estiver usando armadura, você ganha +1 à Classe de Armadura. Simples e consistente.'},
+{n:'Duelo',icon:'⚔',tags:['1 Mão','+2 Dano'],short:'+2 de dano ao lutar com uma arma de uma mão.',desc:'Quando você empunha uma arma de combate corpo a corpo em uma mão e nenhuma outra arma, ganha +2 às jogadas de dano. Ótimo com escudo + espada.'},
+{n:'Grande Arma',icon:'🗡',tags:['2 Mãos','Dano Mínimo'],short:'Rola novamente 1s e 2s no dano de armas de 2 mãos.',desc:'Quando você rola 1 ou 2 num dado de dano com arma de duas mãos, pode rolar o dado novamente e usar o segundo resultado. Eleva o dano mínimo significativamente.'},
+{n:'Proteção',icon:'🔰',tags:['Reação','Suporte'],short:'Reação para impor desvantagem em ataque contra aliado próximo.',desc:'Quando uma criatura que você pode ver ataca um alvo a 5 pés de você (não você), use sua Reação para impor desvantagem na jogada de ataque. Exige escudo.'},
+{n:'Combate com Duas Armas',icon:'🔱',tags:['Duas Armas','Dano Extra'],short:'Adicione mod de atributo ao dano da segunda arma.',desc:'Quando você luta com duas armas leves, pode adicionar o modificador de habilidade ao dano do ataque bônus da segunda arma. Normalmente esse ataque não soma o mod.'},
+],
+paladino:[
+{n:'Defesa',icon:'🛡',tags:['Tanque','+1 CA'],short:'+1 CA ao usar armadura.',desc:'Enquanto estiver usando armadura, você ganha +1 à Classe de Armadura.'},
+{n:'Duelo',icon:'⚔',tags:['1 Mão','+2 Dano'],short:'+2 de dano com arma de uma mão.',desc:'Quando você empunha uma arma corpo a corpo em uma mão e nenhuma outra, ganha +2 às jogadas de dano. O mais popular entre paladinos com escudo.'},
+{n:'Grande Arma',icon:'🗡',tags:['2 Mãos','Dano Mínimo'],short:'Rola novamente 1s e 2s no dano.',desc:'Quando você rola 1 ou 2 no dano com arma de duas mãos, pode rolar novamente. Eleva muito o dano mínimo de Esmagar Divino.'},
+{n:'Proteção',icon:'🔰',tags:['Reação','Suporte'],short:'Reação para proteger aliados.',desc:'Use sua Reação para impor desvantagem em ataques contra aliados a 5 pés. Exige escudo.'},
+{n:'Proteção Abençoada',icon:'✨',tags:['Suporte','Buff Aliados'],short:'Aliados a 10 pés ganham +1d4 em todos os testes de resistência.',desc:'Aliados amigáveis a 10 pés de você adicionam 1d4 a todos os testes de resistência enquanto você estiver consciente. Extremamente poderoso em grupo.'},
+{n:'Armas Interligadas',icon:'🔱',tags:['Duas Armas','Sem Penalidade'],short:'Adicione mod ao dano da segunda arma em duas armas.',desc:'Quando você usa Luta com Duas Armas, pode adicionar o modificador de habilidade ao dano da segunda arma.'},
+],
+patrulheiro:[
+{n:'Arqueiro',icon:'🏹',tags:['Ranged','+2 Ataque'],short:'+2 em ataques à distância.',desc:'+2 em jogadas de ataque com armas de ataque à distância. A escolha padrão para patrulheiros de arco.'},
+{n:'Defesa',icon:'🛡',tags:['Tanque','+1 CA'],short:'+1 CA ao usar armadura.',desc:'Enquanto estiver usando armadura, você ganha +1 à Classe de Armadura.'},
+{n:'Duelo',icon:'⚔',tags:['1 Mão','+2 Dano'],short:'+2 de dano com arma de uma mão.',desc:'+2 às jogadas de dano quando empunha arma corpo a corpo em uma mão e nenhuma outra.'},
+{n:'Combate com Duas Armas',icon:'🔱',tags:['Duas Armas','Dano Extra'],short:'Adicione mod ao dano da segunda arma.',desc:'Quando você luta com duas armas leves, pode adicionar o modificador de habilidade ao dano do ataque bônus.'},
+{n:'Lâmina Cega',icon:'🌑',tags:['Defesa','Anti Oportunidade'],short:'+1 CA contra ataques de oportunidade.',desc:'Você aprende a sentir ameaças sem ver. Ganha +1 CA contra ataques de oportunidade. Ideal para patrulheiros que precisam se mover.'},
+],
+};
+
+const OATHS={
+devocao:{n:'Devoção',icon:'⚜',tags:['Equilibrado','Iniciante','Luz'],short:'O paladino clássico. Luz, justiça e proteção divina.',
+desc:'O Juramento de Devoção prende um paladino aos ideais mais elevados de justiça, virtude e ordem. São os cavaleiros clássicos de contos heroicos — combatentes do mal com pureza de coração.',
+playstyle:'Paladino versátil e equilibrado. Arma Sagrada dá +mod CAR em ataques por 1 min. Ideal para iniciantes. Aura de Devoção (nível 7) = imunidade a encantamento para você e aliados.',
+powers:['Arma Sagrada: +mod CAR em ataques por 1 min (Canalizar)','Expulsar Profano: expulsa mortos-vivos e demônios','Aura de Devoção (nível 7): imunidade a encantamento'],
+spells:{3:['Proteção do Bem e do Mal','Santuário'],5:['Zone of Truth','Restauração Menor'],9:['Círculo Mágico','Localizar Criatura'],13:['Guardião da Fé','Liberdade de Movimento'],17:['Comunhão','Chama Sagrada']}},
+ancestrais:{n:'Ancestrais',icon:'🌿',tags:['Resistência Mágica','Natureza','Anti-Mago'],short:'Resistência mágica sobrenatural. Guardião da natureza ancestral.',
+desc:'O Juramento dos Ancestrais é tão antigo quanto a floresta e a estrela da noite. Esses paladinos se comprometem a preservar o mundo natural, mas sem negar a escuridão necessária.',
+playstyle:'O anti-mago do grupo. Aura Protetora (nível 7) dá resistência a dano de magias inimigas. Extremamente forte contra lançadores inimigos.',
+powers:['Luzes da Natureza: cega e restringe inimigos (Canalizar)','Exílio Ártico: imobiliza criaturas grandes','Aura Protetora (nível 7): resistência a dano de magias inimigas'],
+spells:{3:['Enredar','Falar com Animais'],5:['Lua Distante','Passo da Neblina'],9:['Planta Crescente','Vento'],13:['Dominar Besta','Quarto Magnífico'],17:['Comunhão com Natureza','Regeneração']}},
+vinganca:{n:'Vingança',icon:'⚔',tags:['Dano Máximo','Boss Killer','Ofensivo'],short:'Vantagem garantida em todos os ataques contra um alvo por 1 min.',
+desc:'Um paladino de Vingança se compromete a punir quem faz o mal. Não hesita em usar meios sombrios para um fim justo. São os mais ofensivos de todos os paladinos.',
+playstyle:'Máquina de dano puro. Voto de Inimizade dá VANTAGEM em todos os ataques contra um alvo por 1 min. Combinado com Esmagar Divino = maior burst de dano de alvo único do jogo.',
+powers:['Voto de Inimizade: vantagem em todos os ataques vs alvo (1 min)','Exílio Divino: bane extraplanares (TR CAR)','Aura Sinistra (nível 7): +10ft velocidade, sem ataques de oportunidade'],
+spells:{3:['Julgamento','Proteção contra Veneno'],5:['Silêncio','Localizar Criatura'],9:['Hipnotismo em Massa','Proteção de Energia'],13:['Banimento','Compulsão'],17:['Dominação Humanoide','Planar Binding']}},
+conquista:{n:'Conquista',icon:'👑',tags:['Controle','Medo','Dano Psíquico'],short:'Aterroriza inimigos. Velocidade zero e dano psíquico automático.',
+desc:'Um paladino de Conquista busca a glória na vitória, subjugando inimigos e impondo sua vontade. São intimidadores natos, frequentemente moralmente cinzentos.',
+playstyle:'Controlador de batalha. Ação Conquistadora aterroriza. Aura de Conquista (nível 7): criaturas amedrontadas têm velocidade 0 e sofrem dano psíquico = mod CAR automaticamente.',
+powers:['Ação Conquistadora: aterroriza criaturas a 30ft (TR SAB)','Toque Fantasmal: imobiliza com toque','Aura de Conquista (nível 7): amedrontados velocidade 0 + dano psíquico'],
+spells:{3:['Armadura de Agathys','Comando'],5:['Dominar Pessoa','Espiritual Weapon'],9:['Bestow Curse','Medo'],13:['Dominar Besta','Stoneskin'],17:['Cloudkill','Dominação Humanoide']}},
+gloria:{n:'Glória',icon:'🌟',tags:['Suporte','Mobilidade','Liderança'],short:'Inspira aliados a feitos heroicos. Mobilidade e PV temporários.',
+desc:'Um paladino de Glória busca elevar os outros a grandes feitos heroicos. São líderes inspiradores, combinando combate eficiente com suporte excepcional.',
+playstyle:'O paladino de suporte mais forte. Inspira Heroísmo dá PV temporários. Corrida Gloriosa dá mobilidade extra. Aura Radiante (nível 7) impede invisibilidade próxima.',
+powers:['Inspira Heroísmo: PV temporários + velocidade a aliados','Corrida Gloriosa: aliados sem ataques de oportunidade','Aura Radiante (nível 7): criaturas não ficam invisíveis próximas'],
+spells:{3:['Curar Ferimentos','Guia'],5:['Restauração Menor','Invisibilidade'],9:['Haste','Proteção de Energia'],13:['Compulsão','Liberdade de Movimento'],17:['Laço','Telekinesis']}},
+};
+
+
+const PAL_SPELLS={
+1:[
+{n:'Abençoar',a:'Ação',al:'30ft',c:'Conc. 1min',tags:['Buff','Combate'],desc:'Até 3 criaturas ganham +1d4 em jogadas de ataque E testes de resistência. Fortíssima magia de abertura de combate.',req:'Concentração'},
+{n:'Comando',a:'Ação',al:'60ft',c:'1 rodada',tags:['Controle','Sem Conc.'],desc:'Uma palavra força inimigo a obedecer: Aproximar, Fugir, Tombar, Parar ou Largar. TR de SAB anula. Sem concentração!',req:'TR SAB inimigo'},
+{n:'Curar Ferimentos',a:'Ação',al:'Toque',c:'Instantâneo',tags:['Cura','Combate'],desc:'Restaura 1d8 + mod CAR de PV a uma criatura. Escala com nível do espaço. Inútil em mortos-vivos.',req:'Toque'},
+{n:'Detectar Mal e Bom',a:'Ação',al:'Próprio',c:'Conc. 10min',tags:['Detecção','Exploração'],desc:'Sente aberrações, celestiais, elementais, fadas, demônios e mortos-vivos a 30ft. Não revela posição exata, apenas presença.',req:'Concentração'},
+{n:'Escudo da Fé',a:'A. Bônus',al:'60ft',c:'Conc. 10min',tags:['Buff','+2 CA'],desc:'+2 CA a uma criatura que você possa ver. Ação bônus! Excelente para defender aliado frágil ou a si mesmo.',req:'Concentração'},
+{n:'Luz Divina',a:'Ação',al:'Cone 30ft',c:'1 rodada',tags:['Luz','Área'],desc:'Cone de 30ft brilhante. Cega inimigos (TR CON) e revela invisíveis. Especialmente eficaz contra mortos-vivos.',req:'TR CON'},
+{n:'Proteção do Bem e do Mal',a:'Ação',al:'Toque',c:'Conc. 10min',tags:['Proteção','Defesa'],desc:'Protege aliado de aberrações, celestiais, elementais, fadas, demônios e mortos-vivos: desvantagem em ataques contra ele.',req:'Concentração'},
+{n:'Santuário',a:'A. Bônus',al:'30ft',c:'1 min',tags:['Proteção','Suporte'],desc:'Inimigos devem passar TR de SAB para atacar o alvo. Quebra apenas se o alvo atacar. Ótimo para proteger curandeiros.',req:'TR SAB inimigo'},
+{n:'Retribuição Reluzente',a:'A. Bônus',al:'Próprio',c:'Conc. 1min',tags:['Reação','Dano'],desc:'Quando acertado em corpo a corpo, o atacante sofre 1d4 radiante como REAÇÃO (sem gastar ação). Escala com nível.',req:'Concentração'},
+{n:'Purificar Alimento e Bebida',a:'Ação',al:'10ft',c:'Instantâneo',tags:['Utilidade','Ritual'],desc:'Remove venenos e infecções de alimentos e bebidas. Pode ser lançada como ritual (sem espaço em 10 min).',req:'Pode ser ritual'},
+],
+2:[
+{n:'Auxílio',a:'Ação',al:'30ft',c:'8 horas',tags:['Buff','+5 PV'],desc:'3 criaturas ganham +5 PV máximos e atuais por 8 horas. Sem concentração! Excelente antes de encontros difíceis.',req:'Sem concentração'},
+{n:'Encontrar Corcel',a:'10 min',al:'Adjacente',c:'Permanente',tags:['Montaria','Utilidade'],desc:'Invoca um corcel espiritual (cavalo, pônei, mastim, etc.) como montaria inteligente e obediente.',req:'10 min de conjuração'},
+{n:'Oração de Cura',a:'10 min',al:'30ft',c:'Instantâneo',tags:['Cura em Massa','Fora Combate'],desc:'Cura até 6 criaturas: cada uma recupera 2d8 + mod CAR de PV. Só pode ser usada fora de combate.',req:'Fora de combate'},
+{n:'Proteção contra Veneno',a:'Ação',al:'Toque',c:'1 hora',tags:['Proteção','Veneno'],desc:'Neutraliza veneno afetando o alvo e dá vantagem em TR contra venenos e resistência a dano por veneno. Sem concentração.',req:'Sem concentração'},
+{n:'Restauração Menor',a:'Ação',al:'Toque',c:'Instantâneo',tags:['Cura Condição','Essencial'],desc:'Cura uma condição: cegado, ensurdecido, paralisado, envenenado OU reduz exaustão em 1. Essencial em masmorras.',req:'Toque'},
+{n:'Zona da Verdade',a:'Ação',al:'60ft',c:'10 min',tags:['Social','Interrogatório'],desc:'Criaturas numa esfera de 15ft não podem mentir conscientemente (TR CAR anula, mas sabem que estão afetadas).',req:'TR CAR'},
+{n:'Silêncio',a:'Ação',al:'120ft',c:'Conc. 10min',tags:['Controle','Anti-Magia'],desc:'Esfera de 20ft em silêncio absoluto. Lançadores dentro não conseguem conjurar feitiços com componente verbal.',req:'Concentração'},
+{n:'Localizar Objeto',a:'Ação',al:'1000ft',c:'Conc. 10min',tags:['Detecção','Exploração'],desc:'Sente a direção de um objeto específico a até 1000ft. Não passa por chumbo.',req:'Concentração'},
+],
+3:[
+{n:'Círculo Mágico',a:'1 min',al:'10ft',c:'1 hora',tags:['Proteção','Armadilha'],desc:'Cilindro de 10ft raio que impede aberrações, celestiais, elementais, fadas ou mortos-vivos de entrar ou sair.',req:'1 min + 100po mat.'},
+{n:'Luz do Dia',a:'Ação',al:'60ft',c:'1 hora',tags:['Luz','Anti Mortos-Vivos'],desc:'Um ponto emite luz brilhante de 60ft. Dispela trevas mágicas. Mortos-vivos com sensibilidade sofrem desvantagem. Sem concentração.',req:'Sem concentração'},
+{n:'Localizar Criatura',a:'Ação',al:'1000ft',c:'Conc. 1hora',tags:['Detecção','Rastreamento'],desc:'Sente a direção da criatura mais próxima de um tipo (ou indivíduo) a 1000ft. Não passa por chumbo.',req:'Concentração'},
+{n:'Remover Maldição',a:'Ação',al:'Toque',c:'Instantâneo',tags:['Cura','Maldição'],desc:'Termina todas as maldições afetando a criatura. Remove ligação a itens amaldiçoados.',req:'Toque'},
+{n:'Criar Alimento e Água',a:'Ação',al:'30ft',c:'Instantâneo',tags:['Sobrevivência','Utilidade'],desc:'Cria 45kg de comida e 30L de água para 15 humanoides por 24h. Muito útil em expedições.',req:'Sem concentração'},
+]};
+
+const FEATS=[
+{n:'Alerta',icon:'👁',tags:['Iniciativa','Defesa'],short:'+5 na iniciativa. Nunca surpreendido consciente.',desc:'+5 nas jogadas de iniciativa. Não pode ser surpreendido enquanto consciente. Criaturas invisíveis não ganham vantagem em ataques contra você (mas você ainda não as vê).'},
+{n:'Atirador',icon:'🏹',tags:['+1 DES','Ranged'],short:'+1 DES. Disparo perfeito mesmo em combate próximo.',desc:'+1 DES. Atacar ao alcance próximo não impõe desvantagem. Ataques ignoram cobertura parcial. Distância longa não impõe desvantagem.'},
+{n:'Flagelante Mágico',icon:'🔮',tags:['+1 Atributo','Anti-Resistência'],short:'+1 no atributo de magia. Suas magias ignoram resistência a dano.',desc:'Escolha atributo de conjuração. +1 nele. Suas magias desse atributo ignoram resistência a dano (causam total em vez de metade). 1× por turno, pode impor desvantagem nos TR contra uma de suas magias.'},
+{n:'Fortitude',icon:'❤',tags:['+1 CON','Resistência'],short:'+1 CON. Resistência ao empurrão. Melhor recuperação com Dados de Vida.',desc:'+1 CON. Resistência ao empurrão: vantagem em testes de resistência a ser movido. Quando usar Dado de Vida para curar, role 1d10 + mod CON extra. Ótimo para paladinos manterem concentração.'},
+{n:'Iniciado em Magia',icon:'✨',tags:['Multiclasse Leve','Magia Extra'],short:'2 truques e 1 magia de 1º nível de outra classe.',desc:'Escolha uma classe: aprenda 2 cantrips e 1 magia de 1º nível dessa classe. A magia pode ser lançada 1× por descanso longo sem espaço. Usa o atributo da classe escolhida.'},
+{n:'Líder Inspirador',icon:'📣',tags:['Suporte','PV Temporários'],short:'Discurso de 10 min dá PV temporários a aliados.',desc:'Passe 10 min discursando para até 6 criaturas. Cada uma ganha PV temporários = seu nível + mod Carisma. Muito forte para paladinos com CAR alto.'},
+{n:'Lucky (Sortudo)',icon:'🍀',tags:['Sorte','Poderoso'],short:'3 pontos de sorte: re-role ataques, testes ou TR.',desc:'3 pontos de sorte por descanso longo. Fez ataque/teste/TR: role dado extra e escolha. Criatura te atacou: role dado extra, atacante usa o pior. Universalmente poderoso.'},
+{n:'Observador',icon:'🔍',tags:['+1 INT/SAB','Percepção'],short:'+1 INT ou SAB. Leitura labial e +5 em percepções.',desc:'+1 INT ou SAB. Leitura labial: se vir a boca de alguém, entende o que diz. +5 nas Percepções passiva e ativa. Útil para exploração.'},
+{n:'Proeza',icon:'⬆',tags:['2 Atributos','+1 cada'],short:'+1 em dois atributos à sua escolha (máx 20 cada).',desc:'Aumenta dois atributos em 1 ponto cada (máximo 20). A única forma de aumentar dois atributos de uma vez.'},
+{n:'Resistente',icon:'🔒',tags:['+1 Atributo','Teste Resistência'],short:'+1 num atributo + proficiência num TR.',desc:'Escolha um atributo: +1 nele e proficiência nos TRs desse atributo. Paladino com Resistente CON = CON +1 e proficiência em TR CON = concentração muito mais segura.'},
+{n:'Tough (PV Extra)',icon:'💪',tags:['PV Extra','+2/nível'],short:'+2 PV por cada nível atual e futuros.',desc:'Você ganha +2 PV por cada nível (atual e futuros). Paladino nível 3 ganha +6 PV imediatamente. Simples e eficiente.'},
+{n:'Sentidos Aguçados',icon:'👂',tags:['Percepção','Utilidade'],short:'Proficiência em Percepção.',desc:'Você ganha proficiência na perícia Percepção. Percepção é o teste mais rolado do jogo. Se já tiver proficiência, dobra.'},
+{n:'Talento para Guerra',icon:'🗡',tags:['Arma','Escudo','Proficiência'],short:'Proficiência em uma arma marcial ou escudo.',desc:'Você ganha proficiência em um tipo de arma marcial (ex: espada longa) ou em escudos.'},
+{n:'Médico',icon:'⚕',tags:['Cura Física','Não Mágico'],short:'Cure aliados sem magia com Kit de Curandeiro.',desc:'Com Kit de Curandeiro, use ação para curar 1d6 + 4 + nível do alvo de PV. Não requer nenhuma magia.'},
+];
+
+const METAMAGIC=[
+{n:'Magia Cuidadosa',icon:'🛡',tags:['Área Segura','1 Ponto'],short:'Aliados escolhidos passam automaticamente no TR da magia.',desc:'Gaste 1 ponto de feitiçaria: até mod CAR de criaturas que você escolher automaticamente passam no TR da sua magia. Essencial para usar Bola de Fogo sem machucar aliados.'},
+{n:'Magia Distante',icon:'📏',tags:['Alcance','1 Ponto'],short:'Dobra o alcance da magia (toque vira 30ft).',desc:'Gaste 1 ponto: alcance dobra (ex: 60ft→120ft). Se for Toque, torna-se 30ft. Permita atacar inimigos fora de alcance.'},
+{n:'Magia Elevada',icon:'💀',tags:['Dano','Confiabilidade','1 Ponto'],short:'Alvos que resistirem ainda sofrem metade do dano.',desc:'Gaste 1 ponto: criaturas que passarem no TR ainda sofrem metade do dano. Transforma "errou" em "ainda acertou metade".'},
+{n:'Magia Extendida',icon:'⏰',tags:['Duração','Concentração','1 Ponto'],short:'Dobra a duração de magias de concentração (máx 24h).',desc:'Gaste 1 ponto: magia de concentração tem duração dobrada (máx 24h). Acelerar dura 2 min em vez de 1. Ótima para buffs.'},
+{n:'Magia Sutil',icon:'🎭',tags:['Furtivo','Social','1 Ponto'],short:'Lance magias sem gestos ou palavras visíveis.',desc:'Gaste 1 ponto: lance uma magia sem componentes verbais nem gestuais. Ninguém percebe que você conjurou. Ideal para situações sociais.'},
+{n:'Magia Gêmea',icon:'👥',tags:['2 Alvos','Poderoso','Ponto=Nível'],short:'A mesma magia atinge dois alvos diferentes.',desc:'Gaste pontos = nível da magia (mín 1): magia com alvo único pode ter um segundo alvo. Acelerar em dois aliados = 1 ponto. Uma das mais poderosas.'},
+{n:'Magia Rápida',icon:'⚡',tags:['Velocidade','Ação Bônus','2 Pontos'],short:'Lance uma magia como ação bônus.',desc:'Gaste 2 pontos: lance magia como ação bônus em vez de ação normal. Permite atacar E lançar magia no mesmo turno.'},
+{n:'Magia Poderosa',icon:'💥',tags:['Dano','+mod CAR','1 Ponto'],short:'Adicione mod CAR a uma rolagem de dano.',desc:'Gaste 1 ponto: adicione seu modificador de Carisma ao dano de uma rolagem de dano de uma magia.'},
+];
+
+const INVOCATIONS=[
+{n:'Armadura de Sombras',req:1,icon:'🌑',tags:['CA','À Vontade'],short:'Mage Armor em si mesmo à vontade (CA 13+DES).',desc:'Você pode lançar Mage Armor em si mesmo sem espaço ou componentes. CA = 13 + mod DES permanentemente sem armadura. Essencial para bruxos sem armaduras.'},
+{n:'Eldritch Sight',req:1,icon:'👁',tags:['Detecção','À Vontade'],short:'Detectar Magia à vontade.',desc:'Você pode lançar Detectar Magia à vontade sem espaços. Perceba magias ativas a 30ft. Muito útil para exploração.'},
+{n:'Olhos do Guardião',req:1,icon:'🔮',tags:['Visão','Conhecimento'],short:'Visão no escuro 60ft. Lê qualquer língua escrita.',desc:'Pode ver em escuridão não mágica até 60ft. Além disso, pode ler qualquer língua escrita, mesmo que não a fale.'},
+{n:'Voz do Mestre das Cadeias',req:1,icon:'🗣',tags:['Comunicação','Familiar'],short:'Mensagem à vontade. Veja e fale pelo familiar.',desc:'Pode lançar Mensagem à vontade. Quando tiver familiar: veja e ouça através de seus olhos/ouvidos e fale por ele telepáticamente a qualquer distância.'},
+{n:'Força do Feiticeiro',req:1,icon:'💪',tags:['Mobilidade','Levitar'],short:'Levitar em si mesmo à vontade.',desc:'Pode lançar Levitar em si mesmo à vontade. Flutue verticalmente até 20ft. Evite ataques de combate, alcance posições elevadas.'},
+{n:'Máscara de Múltiplas Faces',req:1,icon:'🎭',tags:['Social','Infiltração'],short:'Disfarce à vontade.',desc:'Pode lançar Disfarce à vontade. Mude sua aparência — altura, face, roupas — por 1 hora. Ilimitado. Essencial para infiltração.'},
+{n:'Sugestão Enganosa',req:5,icon:'💬',tags:['Social','Nível 5'],short:'Sugestão 1× por descanso longo. Sem componentes audíveis.',desc:'Pode lançar Sugestão 1× por descanso longo sem espaço e sem componentes audíveis. Ninguém percebe que você conjurou.'},
+{n:'Sussurros do Servo',req:7,icon:'👻',tags:['Furtividade','Nível 7'],short:'Invisibilidade em si mesmo à vontade.',desc:'Pode lançar Invisibilidade em si mesmo à vontade sem espaços. Ideal para espionagem, posicionamento e fuga.'},
+{n:'Olho do Soberano Distante',req:9,icon:'🌐',tags:['Espionagem','Nível 9'],short:'Clarividência 1× por descanso longo.',desc:'Pode lançar Clairvoyance 1× por descanso longo sem espaço. Sensor invisível a 1 milha por 10 minutos.'},
+{n:'Ascensão Demoníaca',req:9,icon:'😈',tags:['Voo','Combate','Nível 9'],short:'Voo 30ft, Escuridão e resistências por 1 min.',desc:'Use ação bônus: voo 30ft, Escuridão de 10ft raio, resistência raio/frio/fogo, visão no escuro 60ft por 1 min. 1× por descanso longo.'},
+];
+
+const PACTS=[
+{n:'Pacto da Lâmina',icon:'⚔',tags:['Combate Melee','Arma Mágica'],short:'Conjure arma mágica que retorna à mão.',desc:'Use ação para criar vínculo com arma de combate corpo a corpo mágica que aparece na sua mão. A arma desaparece se ficar a mais de 5ft por 1 minuto.',playstyle:'Ideal para bruxos que querem entrar em corpo a corpo. Combinado com certas invocações, torna-se devastador.'},
+{n:'Pacto da Corrente',icon:'🐾',tags:['Familiar Especial','Exploração'],short:'Familiar especial com habilidades únicas (Imp, Pseudodragon, Quasit, Sprite).',desc:'Aprenda Encontrar Familiar como ritual. Pode invocar: Imp (invisível, venenoso), Pseudodragon (telepatia), Quasit (resistente a magia) ou Sprite (lê alinhamento, causa sono).',playstyle:'Excelente para reconhecimento e social. O Imp fica invisível indefinidamente. O Pseudodragon cria vínculo telepático.'},
+{n:'Pacto do Tomo',icon:'📖',tags:['3 Cantrips Extras','Versatilidade'],short:'Livro das Sombras com 3 truques de qualquer classe.',desc:'Você recebe um Livro das Sombras com 3 cantrips de qualquer classe. Pode usar INT, SAB ou CAR para esses cantrips. Se perdido, recria em 1 hora.',playstyle:'O mais versátil. 3 cantrips adicionais de qualquer classe = opções enormes. Combinado com certas invocações = muito poderoso.'},
+];
+
+
+const SUBCLASSES={
+paladino:[
+{n:'Juramento de Devoção',icon:'⚜',tags:['Equilibrado','Iniciante','Luz'],short:'O paladino clássico. Arma Sagrada e Expulsar Profano.',desc:'Arma Sagrada: imbuir arma para +mod CAR em ataques por 1 min (Canalizar). Expulsar o Profano: expulsa mortos-vivos e demônios. Aura de Devoção (nível 7): imunidade a encantamento para você e aliados próximos.',playstyle:'O mais equilibrado. Ideal para iniciantes. Fortíssimo em qualquer situação.',powers:['Arma Sagrada: +mod CAR em ataques (1 min)','Expulsar Profano: mortos-vivos e demônios fogem','Aura de Devoção (nível 7): imunidade a encantamento']},
+{n:'Juramento dos Ancestrais',icon:'🌿',tags:['Resistência Mágica','Natureza','Anti-Mago'],short:'Aura de resistência a dano de magias inimigas.',desc:'Luzes da Natureza: Canalizar para cegar e restringir inimigos. Aura Protetora (nível 7): você e aliados a 10ft têm resistência a dano de magias de inimigos.',playstyle:'O paladino anti-mago. Extremamente forte em combates contra lançadores.',powers:['Luzes da Natureza: cega e restringe (Canalizar)','Aura Protetora (nível 7): resistência a magias inimigas']},
+{n:'Juramento da Vingança',icon:'⚔',tags:['Dano Máximo','Boss Killer','Ofensivo'],short:'Vantagem em TODOS os ataques contra um alvo por 1 min.',desc:'Voto de Inimizade: Canalizar para VANTAGEM em todos os ataques contra um alvo por 1 min. Exílio Divino: bane extraplanares. Aura Sinistra (nível 7): +10ft velocidade, sem ataques de oportunidade.',playstyle:'O paladino de maior dano. Voto + Esmagar Divino = burst devastador.',powers:['Voto de Inimizade: vantagem em todos ataques vs alvo','Exílio Divino: bane extraplanares','Aura Sinistra (nível 7): velocidade +10ft, sem oportunidade']},
+{n:'Juramento da Conquista',icon:'👑',tags:['Controle','Medo','Dano Psíquico'],short:'Amedrontados ficam com velocidade 0 e tomam dano psíquico.',desc:'Ação Conquistadora: Canalizar para assustar a 30ft (TR SAB). Aura de Conquista (nível 7): criaturas amedrontadas têm velocidade 0 e sofrem dano psíquico = mod CAR no início do turno.',playstyle:'Controlador de batalha. Imobiliza enquanto mata lentamente com dano psíquico.',powers:['Ação Conquistadora: aterroriza 30ft (TR SAB)','Aura de Conquista (nível 7): velocidade 0 + dano psíquico']},
+{n:'Juramento da Glória',icon:'🌟',tags:['Suporte','Mobilidade','Liderança'],short:'Inspira aliados. Aura Radiante impede invisibilidade próxima.',desc:'Inspira Heroísmo: Canalizar para PV temporários e velocidade extra a aliados. Corrida Gloriosa: aliados sem oportunidade. Aura Radiante (nível 7): criaturas não ficam invisíveis próximas.',playstyle:'O paladino de suporte mais forte. Excelente líder.',powers:['Inspira Heroísmo: PV temporários + velocidade','Corrida Gloriosa: aliados sem oportunidade','Aura Radiante (nível 7): sem invisibilidade próxima']},
+{n:'Sem Juramento (Antipaladino)',icon:'💀',tags:['Mortos-Vivos','Anti-herói','Trevas'],short:'Usa poder das trevas. Aura de Ódio com mortos-vivos.',desc:'Condenação Divina: +dano necrótico em acerto (Canalizar). Controlar Mortos-Vivos (Canalizar). Aura de Ódio (nível 7): você e mortos-vivos aliados ganham +mod CAR em dano melee.',playstyle:'Para personagens moralmente cinzentos. Forte com mortos-vivos aliados.',powers:['Condenação Divina: dano necrótico extra','Controlar Mortos-Vivos','Aura de Ódio (nível 7): +mod CAR ao dano melee']},
+],
+guerreiro:[
+{n:'Campeão',icon:'🏆',tags:['Simples','Crítico','Iniciante'],short:'Crítico em 19-20. O guerreiro mais simples e letal.',desc:'Crítico Aprimorado: você acerta crítico no 19 e 20 (não apenas 20). Nível 7: segundo estilo de combate. Nível 15: crítico no 18-19-20.',playstyle:'O guerreiro mais simples. Ideal para iniciantes. Não tem botões complexos.',powers:['Crítico Aprimorado: critica em 19-20','Segundo Estilo (nível 7)','Crítico Superior (nível 15): 18-19-20']},
+{n:'Mestre de Batalha',icon:'📋',tags:['Tático','Manobras','Complexo'],short:'Manobras táticas com dados de superioridade d8.',desc:'4 dados de superioridade d8. Aprenda 3 manobras (Ataque Preciso, Derrubada, Empurrão, Provocação, etc.) que podem ser usadas ao atacar.',playstyle:'O guerreiro mais tático. As manobras dão flexibilidade enorme. Ideal para jogadores estratégicos.',powers:['4 dados de superioridade d8','3 manobras táticas (cresce)','Conhecimento da Batalha: INT amplificada']},
+{n:'Cavaleiro Arcano',icon:'🔮',tags:['Magia','Versátil','Reação'],short:'Guerreiro com magias de mago. Lança magia como reação.',desc:'Aprende magias de mago usando INT. Weapon Bond: vincule armas — retornam à mão como ação bônus e não podem ser desarmadas. Nível 7: lance magia como reação ao ser atacado.',playstyle:'Guerreiro mágico versátil. Combina brutalidade com truques mágicos.',powers:['Magias de mago até 4º nível','Weapon Bond: armas não são desarmadas','Guerra de Magia (nível 7): magia de reação']},
+{n:'Samurai',icon:'⛩',tags:['Burst','Sobrevivência','Honorável'],short:'Surge de Luta sem usar Surto de Ação. Determinação inabalável.',desc:'Surge de Luta: 3 ataques como ação bônus (sem Surto de Ação) mas causa exaustão. Determinação Inabalável: 1× por turno, se cair a 0 PV, fica em 1 PV.',playstyle:'Poderoso burst de dano. A Determinação Inabalável pode salvar sua vida.',powers:['Surge de Luta: 3 ataques como ação bônus','Determinação Inabalável: cair a 0 = fica em 1 PV']},
+],
+barbaro:[
+{n:'Caminho do Berserker',icon:'💢',tags:['Dano','Ofensivo','Simples'],short:'Frenesio: ataque bônus em cada turno em fúria. Causa exaustão.',desc:'Em Frenesio, pode atacar como ação bônus em cada turno em fúria. Após a fúria: 1 nível de exaustão (desvantagem em testes/ataques).',playstyle:'Máquina de dano puro. A exaustão pós-fúria é gerenciável com poucos combates por dia.',powers:['Frenesio: ataque bônus extra toda rodada em fúria','Mente Implacável (nível 6): imune a encantamento/pavor em fúria']},
+{n:'Caminho do Totem Guerreiro',icon:'🐻',tags:['Resistência','Versátil','Grupo'],short:'Urso: resistência a quase todos os danos em fúria.',desc:'Nível 3: escolha totem. Urso: resistência a todos os danos exceto psíquico em fúria. Lobo: aliados têm vantagem em ataques vs inimigos adjacentes. Águia: não provoca oportunidade.',playstyle:'Urso é considerada a escolha mais forte: resistência a todos os danos transforma o bárbaro em tanque quase imortal.',powers:['Urso: resistência a TODOS os danos (exc. psíquico)','Lobo: aliados com vantagem próximos','Águia: mobilidade superior']},
+{n:'Caminho do Heraldo Ancestral',icon:'👻',tags:['Proteção','Grupo','Tanque'],short:'Espíritos ancestrais desviam ataques de aliados para você.',desc:'Protetores Ancestrais: o primeiro inimigo atacado em fúria tem desvantagem em atacar ALIADOS. Spirit Shield (nível 6): reação para reduzir dano a aliado próximo.',playstyle:'O bárbaro mais voltado para proteção de grupo.',powers:['Protetores Ancestrais: inimigo prefere você como alvo','Spirit Shield (nível 6): reação para reduzir dano de aliado']},
+{n:'Caminho da Magia Selvagem',icon:'🌀',tags:['Caótico','Mágico','Diversão'],short:'Fúria libera efeitos mágicos aleatórios e poderosos.',desc:'Ao entrar em fúria, efeitos mágicos aleatórios acontecem (teleporte, aura de dano, cura, etc.). Nível 6: pode forçar o efeito.',playstyle:'Mais caótico e divertido. Ótimo para jogadores que gostam de imprevisibilidade.',powers:['Surto de Magia: efeito aleatório ao entrar em fúria','Controlador de Caos (nível 6): pode forçar o efeito']},
+],
+bardo:[
+{n:'Colégio do Saber',icon:'📚',tags:['Debuff','Versátil','Social'],short:'Palavras Cortantes: reduza rolagens de inimigos com 1d6.',desc:'Palavras Cortantes: use Reação para reduzir uma jogada de ataque, dano ou TR de inimigo com 1d6 (cresce com nível). Magias Adicionais (nível 6): 2 magias de qualquer classe.',playstyle:'O bardo mecanicamente mais forte. Palavras Cortantes pode transformar um crítico em falha.',powers:['Palavras Cortantes: -1d6 em ataque/dano/TR inimigo','Magias Adicionais (nível 6): 2 magias de qualquer classe']},
+{n:'Colégio do Valor',icon:'⚔',tags:['Combate','Armadura','Ataque Extra'],short:'Bardo guerreiro. Armas marciais, armadura média, ataque extra.',desc:'Proficiência em armadura média, escudos e armas marciais. Ataque Extra no nível 6. Inspiração de Combate: aliados adicionam dado à CA ou dano.',playstyle:'Transforma o bardo em combatente competente sem perder a versatilidade.',powers:['Armadura média e armas marciais','Ataque Extra (nível 6)','Inspiração de Combate: dado à CA ou dano']},
+{n:'Colégio da Eloquência',icon:'🗣',tags:['Social','Persuasão','Poderoso'],short:'Nunca tira menos que 10 em Persuasão.',desc:'Palavras Imutáveis: resultado mínimo 10 no dado de Persuasão. Inspiração Universal: pode se inspirar. Palavras Enganosas (nível 6): Persuasão = Enganação.',playstyle:'O melhor bardo para roleplay social. Praticamente impossível de falhar em interações.',powers:['Palavras Imutáveis: mínimo 10 em Persuasão','Inspiração Universal: pode se autoinspurar','Palavras Enganosas (nível 6)']},
+{n:'Colégio da Criação',icon:'🎨',tags:['Criativo','Suporte','Único'],short:'Conjure objetos reais e os anime para combate.',desc:'Nota de Potencialidade: Inspiração dá PV temporários. Forma de Criação: conjure objeto não mágico por 12 horas. Nível 6: Criação Animada — objeto animado ataca inimigos.',playstyle:'Mais criativo e de suporte. O Objeto Animado pode ser surpreendentemente poderoso.',powers:['Nota de Potencialidade: PV temporários com Inspiração','Forma de Criação: conjure objetos reais','Criação Animada (nível 6): objeto ataca']},
+],
+clerigo:[
+{n:'Domínio da Vida',icon:'❤',tags:['Cura','Suporte','Iniciante'],short:'Curandeiro supremo. Curas muito mais eficientes.',desc:'Mãos Curativas Discernentes: +2+nível em cada cura. Conservação de Magia: curar aliado a 0 PV com magia de 1º nível+ também cura outro aliado = mod CAR PV.',playstyle:'O melhor curandeiro do jogo. Essencial em grupos sem outro curador. Simples de jogar.',powers:['Mãos Curativas: +2+nível em cada cura','Conservação de Magia: cura extra ao curar quase-morto','Armadura pesada']},
+{n:'Domínio da Luz',icon:'☀',tags:['Dano','Radiante','Ofensivo'],short:'Alto dano radiante. Controla escuridão mágica.',desc:'Olhar Preservado: visão no escuro a aliado OU cancela escuridão. Radiância do Amanhecer: expulsa trevas mágicas e causa dano radiante em área a cada turno.',playstyle:'DPS forte com suporte de iluminação. Excelente contra mortos-vivos.',powers:['Olhar Preservado: visão no escuro ou cancela escuridão','Radiância do Amanhecer: expulsa trevas + dano em área']},
+{n:'Domínio da Guerra',icon:'⚔',tags:['Combate','Armadura Pesada','Ataque Bônus'],short:'Guerreiro divino. Armadura pesada. Ataca como ação bônus.',desc:'Proficiência em armadura pesada. Golpe Guiado: +10 em ataque (Canalizar). Ação de Guerra: atacar (não magia) como ação bônus 1× por turno.',playstyle:'Mescla combate direto com conjuração. Pode ser frontliner eficiente.',powers:['Armadura pesada e armas marciais','Golpe Guiado: +10 em ataque (Canalizar)','Ação de Guerra: ataque bônus 1× por turno']},
+{n:'Domínio do Conhecimento',icon:'📖',tags:['Conhecimento','Perícias','Exploração'],short:'Sabe tudo. Perícias extras e resposta a qualquer pergunta.',desc:'Bênçãos do Conhecimento: +2 línguas e dobra proficiência em 2 perícias de conhecimento. Conhecimento das Eras: Canalizar para responder qualquer pergunta histórica/natural.',playstyle:'Melhor clérigo para campanhas investigativas. Forte em roleplay.',powers:['Bênçãos do Conhecimento: +2 línguas, expertise em 2 perícias','Conhecimento das Eras: qualquer fato histórico/natural']},
+{n:'Domínio da Tempestade',icon:'⚡',tags:['Raio','Área','Ofensivo'],short:'Trovões e relâmpagos. Alto dano elétrico em área.',desc:'Ira da Tempestade: reação para dano de raio ao ser acertado. Tempestade Canalizada: linha de 60ft de raio/trovão. Nível 6: voo temporário.',playstyle:'Alto dano elétrico, fraco em cura. Perfeito para quem quer ser o mago do trovão.',powers:['Ira da Tempestade: reação de dano ao ser acertado','Tempestade Destrutiva: linha de raio (Canalizar)']},
+],
+druida:[
+{n:'Círculo da Lua',icon:'🌙',tags:['Combate','Tanque','Forma Selvagem'],short:'Forma Selvagem poderosa como ação bônus. CR alto.',desc:'Formas de Combate: Forma Selvagem como ação BÔNUS. CR ≤ 1 (nível 2), ≤ 3 (nível 6), subindo a cada 2 níveis. Nível 10: pode virar Elementais.',playstyle:'O mais poderoso em combate. Transformar em Urso Polar ou Elemental = tanque com PV imensos "trocáveis".',powers:['Formas de Combate: Forma Selvagem como ação bônus','CR mais alto a cada 2 níveis','Elementais (nível 10)']},
+{n:'Círculo da Terra',icon:'🌍',tags:['Magia','Recuperação','Versátil'],short:'Recupera espaços de magia no descanso curto.',desc:'Recuperação Natural: recupere espaços = metade do nível no descanso curto. Magias do Círculo: lista extra automática por terreno escolhido.',playstyle:'O druida lançador mais eficiente. Recuperar espaços no descanso curto é muito poderoso.',powers:['Recuperação Natural: espaços no descanso curto','Magias do Círculo: lista extra por terreno']},
+{n:'Círculo dos Esporos',icon:'🍄',tags:['Necromancia','Controle','Único'],short:'Mortos-vivos, venenos e halo de esporos necróticos.',desc:'Halo de Esporos: dano necrótico de reação a criaturas que passem a 10ft. Forma Infectada: infunda esporos em mortos-vivos para controlá-los.',playstyle:'Druida mais sombrio. Para quem quer o lado obscuro da natureza.',powers:['Halo de Esporos: dano necrótico de reação','Forma Infectada: controle mortos-vivos']},
+],
+feiticeiro:[
+{n:'Origem Dracônica',icon:'🐉',tags:['Resistência','CA','Voo'],short:'CA 13+DES sem armadura. Resistência elemental. Asas nível 14.',desc:'Resiliência Dracônica: +1 PV por nível e CA = 13 + DES sem armadura. Nível 6: resistência ao elemento do dragão ancestral. Nível 14: asas de voo de 60ft.',playstyle:'A origem mais durável. CA alta, resistência consistente e asas.',powers:['CA 13+DES e +1 PV/nível','Resistência Elemental (nível 6)','Asas de voo 60ft (nível 14)']},
+{n:'Magia Selvagem',icon:'🌀',tags:['Caótico','Sorte','Divertido'],short:'Surtos mágicos aleatórios. Flexão da Sorte é extraordinária.',desc:'Surto de Magia: ao lançar magia de 1º+, DM pode pedir d20; em 1 role na tabela de 100 Surtos. Flexão da Sorte: force rerolagem de qualquer criatura 1× por turno.',playstyle:'Imprevisível e hilário. Flexão da Sorte é uma das habilidades de suporte mais fortes.',powers:['Surto de Magia: 100 efeitos aleatórios','Flexão da Sorte: force rerolagem de qualquer criatura']},
+{n:'Alma Divina',icon:'⚜',tags:['Clérigo','Cura','Versátil'],short:'Acessa toda a lista de magias de clérigo.',desc:'Acesso Total: pode escolher qualquer magia da lista de clérigo além da lista de feiticeiro. Afinidade Divina: +1 magia de alinhamento.',playstyle:'O mais versátil. Combinar metamagia com magias de clérigo (cura) dá combinações únicas.',powers:['Lista completa de clérigo disponível','Afinidade Divina: +1 magia','Vigor da Alma (nível 6): PV temporários']},
+{n:'Sombra',icon:'🌑',tags:['Furtividade','Teleporte','Ninja'],short:'Magia de escuridão e sombra. Teleporte entre sombras.',desc:'Artes das Sombras: lança Silêncio, Escuridão e Sono com Ki. Salto das Sombras: teletransporte entre sombras (60ft). Nível 11: invisibilidade como ação bônus.',playstyle:'Especializado em stealth. Muito forte em dungeons escuras.',powers:['Artes das Sombras: Escuridão e Silêncio com Ki','Salto das Sombras: teleporte 60ft entre sombras','Invisibilidade (nível 11): ação bônus']},
+],
+ladino:[
+{n:'Trapaceiro Arcano',icon:'✨',tags:['Magia','Furto','Complexo'],short:'Ladino com truques de mago. Furto de magias.',desc:'Mago de Furto: use Ataque Furtivo com magias de toque de mago. Aprende magias de mago usando INT. Nível 9: pode roubar magias que inimigo preparou.',playstyle:'O mais complexo. Combina furtividade com magia. Altamente versátil.',powers:['Truques de mago + magias usando INT','Ataque Furtivo com magias de toque','Ladrão de Magias (nível 9)']},
+{n:'Assassino',icon:'💀',tags:['Burst','Crítico','Social'],short:'Crítico automático ao surpreender inimigos no 1º turno.',desc:'Assassinato: se surpreender inimigo no primeiro turno, você acerta automaticamente (= crítico). Imitar: mestre do disfarce — assuma identidade de pessoas.',playstyle:'O ladino de maior burst de dano pontual.',powers:['Assassinato: crítico automático ao surpreender','Imitar: disfarce e identidades','Impostor (nível 9): identidade permanente']},
+{n:'Ladrão',icon:'🗝',tags:['Utilidade','Exploração','Versatilidade'],short:'Mestre de arrombamento, escalada e uso de itens mágicos.',desc:'Mãos Rápidas: Use Objeto como ação bônus adicional. Segundo Andar: escale qualquer superfície sem rolagem. Nível 9: use qualquer item mágico sem restrições de classe.',playstyle:'O ladino mais utilitário.',powers:['Mãos Rápidas: Use Objeto como ação bônus','Segundo Andar: escalar qualquer superfície','Usar Qualquer Item Mágico (nível 9)']},
+{n:'Investigador',icon:'🔎',tags:['Investigação','Social','Exploração'],short:'Encontra fraquezas de inimigos. Lê pensamentos no nível 9.',desc:'Mente Investigativa: estude inimigo para fraquezas. Ataque Furtivo em ataques de oportunidade. Nível 9: leia pensamentos 1× por descanso.',playstyle:'Melhor para campanhas investigativas.',powers:['Mente Investigativa: fraquezas do inimigo','Ataque Furtivo em oportunidade','Leitura de Pensamentos (nível 9)']},
+],
+mago:[
+{n:'Escola da Evocação',icon:'💥',tags:['Dano','Área Segura','Ofensivo'],short:'Especialista em dano. Aliados nunca atingidos por suas áreas.',desc:'Magias Construídas: magias de evocação causam +INT em dano. Escultor de Magias: aliados excluídos de magias de área automaticamente.',playstyle:'O mago mais direto. Alto dano + segurança para o grupo.',powers:['Magias Construídas: +INT no dano','Escultor: aliados imunes às suas áreas']},
+{n:'Escola da Ilusão',icon:'🎭',tags:['Criativo','Enganação','Roleplay'],short:'Ilusões cada vez mais reais que podem causar dano real.',desc:'Ilusão Maleável: mude visualmente ilusão como ação bônus. Nível 6: Ilusões Parcialmente Reais — objetos ilusórios causam dano real brevemente.',playstyle:'Para jogadores criativos. Depende muito da criatividade.',powers:['Ilusão Maleável: modifique ilusões como ação bônus','Ilusões Parcialmente Reais (nível 6)']},
+{n:'Escola da Necromancia',icon:'💀',tags:['Mortos-Vivos','Controle','Temático'],short:'Controla mortos-vivos. Cantrips afetam 2 alvos.',desc:'Segador Macabro: cantrips de dano afetam 2 alvos a 5ft. Espoliação Anímica: ao matar humanoide, anime como morto-vivo controlado.',playstyle:'Para quem quer um exército de mortos.',powers:['Segador Macabro: cantrips em 2 alvos','Espoliação Anímica: anime mortos-vivos ao matar']},
+{n:'Escola da Abjuração',icon:'🛡',tags:['Defesa','Tanque','Resistência'],short:'Arcane Ward: escudo mágico permanente que absorve dano.',desc:'Arcane Ward: ao lançar abjuração, crie escudo com PV = 2×nível+INT que absorve dano antes de você. Nível 6: projete o escudo em aliados.',playstyle:'O mago mais durável. O escudo recarrega toda vez que lançar abjuração.',powers:['Arcane Ward: PV = 2×nível+INT absorve dano','Warding de aliados (nível 6)']},
+{n:'Escola da Transmutação',icon:'⚗',tags:['Utilidade','Criativo','Transformação'],short:'Pedra Transmutadora com benefícios permanentes.',desc:'Pedra do Transmutador: crie pedra com benefícios (visão no escuro, velocidade +10, resistência, etc.). Nível 6: transforme aliados temporariamente.',playstyle:'Versátil fora de combate. Menos forte em combate puro.',powers:['Pedra do Transmutador: benefício permanente ao portador','Moldador de Formas (nível 6): transforme aliados']},
+{n:'Escola da Divinação',icon:'🔮',tags:['Poderoso','Iniciante','Presságio'],short:'Presságio: force qualquer resultado de dado que quiser.',desc:'Presságio: role 2d20 após descanso longo. Guarde os resultados. A qualquer momento, substitua QUALQUER jogada por um dos seus Presságios.',playstyle:'A escola mais poderosa mecanicamente. Garante que você nunca falhe na hora crítica.',powers:['Presságio: 2 resultados guardados por descanso','Substitua QUALQUER rolagem pelos Presságios','Presságios Adicionais (nível 6): 3 resultados']},
+],
+monge:[
+{n:'Caminho da Mão Aberta',icon:'🤜',tags:['Combate','Controle','Direto'],short:'Técnicas de imobilização após Flurry of Blows.',desc:'Técnicas da Mão Aberta: após Flurry of Blows, pode knockar, empurrar ou negar reações. Nível 6: Autoavaliação — cura 1d6+SAB no descanso curto.',playstyle:'O monge mais direto e poderoso em combate.',powers:['Técnicas: derrubar, empurrar, negar reação','Autoavaliação (nível 6): cura no descanso curto']},
+{n:'Caminho da Sombra',icon:'🌑',tags:['Stealth','Teleporte','Ninja'],short:'Ninja das sombras. Teleporte entre sombras a 60ft.',desc:'Artes das Sombras: Escuridão, Silêncio e Sono com Ki. Salto das Sombras: teletransporte entre sombras (60ft). Nível 11: invisibilidade como ação bônus.',playstyle:'Ideal para assassinato e stealth.',powers:['Artes das Sombras: Escuridão/Silêncio com Ki','Salto das Sombras: teleporte 60ft','Manto das Sombras (nível 11)']},
+{n:'Caminho do Sol',icon:'☀',tags:['Radiante','Distância','Anti Mortos-Vivos'],short:'Irradiador de luz solar. Dano em área à distância.',desc:'Labareda Heelstrike: ataques podem causar fogo/radiante. Rayo Solar: feixe de luz de 30ft em linha. Nível 11: Campo Solar — aura anti mortos-vivos.',playstyle:'O monge mais ofensivo à distância. Quebra o paradigma "apenas melee".',powers:['Labareda: dano fogo/radiante nos ataques','Rayo Solar: linha de dano radiante','Campo Solar (nível 11): aura anti mortos-vivos']},
+],
+patrulheiro:[
+{n:'Caçador',icon:'🎯',tags:['Dano','Versátil','Consistente'],short:'Presa do Caçador: 3 técnicas de dano extra.',desc:'Nível 3: escolha Colossus Slayer (1d8 extra em alvos já feridos), Giant Killer (ataque de oportunidade quando gigante erra vs você), ou Horde Breaker (ataque extra em alvo adjacente).',playstyle:'Versátil e poderoso. Colossus Slayer é a escolha mais consistente.',powers:['Colossus Slayer: 1d8 extra em alvo ferido','Giant Killer: ataque de oportunidade vs gigantes','Horde Breaker: ataque extra em alvo adjacente']},
+{n:'Mestre das Bestas',icon:'🐺',tags:['Companheiro','Roleplay','Dupla'],short:'Companheiro animal que age no seu turno como ação bônus.',desc:'Companheiro Bestial leal que age com sua ação bônus. Nível 7: companheiro mais durável com habilidades aprimoradas.',playstyle:'Forte com dois "personagens" atuando. Ótimo para roleplay de ranger clássico.',powers:['Companheiro Bestial: age com ação bônus','Defesa Excepcional (nível 7): companheiro mais durável']},
+],
+bruxo:[
+{n:'O Arquidemônio',icon:'😈',tags:['Fogo','Medo','Ofensivo'],short:'Poder demoníaco. Magias de fogo e encantamento.',desc:'Magias expandidas de fogo e encantamento. Darkest Dreaming: engane e ameace criaturas. Nível 6: asas demoníacas e resistência ao fogo temporária.',playstyle:'Ofensivo. Para personagens corrompidos ou que aceitem poder a qualquer custo.',powers:['Magias de fogo e encantamento expandidas','Darkest Dreaming: engane/ameace','Forma Infernal (nível 6): asas + resistência fogo']},
+{n:'O Grande Antigo',icon:'🌌',tags:['Telepatia','Social','Roleplay'],short:'Telepatia com qualquer criatura que conheça uma língua.',desc:'Telepatia Expandida: comunique-se telepáticamente com qualquer criatura que conheça uma língua (sem compartilhar idioma). Magias expandidas de mente.',playstyle:'O bruxo mais social. Telepatia universal é incrivelmente útil em campanhas políticas.',powers:['Telepatia com qualquer falante de idioma','Magias de mente expandidas','Entre os Pensamentos (nível 6)']},
+{n:'A Fada',icon:'🧚',tags:['Teleporte','Encantamento','Social'],short:'Teleporte de 60ft como ação bônus. Magia de glamour.',desc:'Faerie Fire e Sleep expandidos. Presença Tênue: invisibilidade breve 1× por descanso curto. Nível 6: Salto Feérico — teletransporte de 60ft como ação bônus.',playstyle:'Ótimo para campanhas Feywild. O teleporte de ação bônus é extraordinariamente forte.',powers:['Faerie Fire e Sleep expandidos','Presença Tênue: invisibilidade breve','Salto Feérico (nível 6): teleporte 60ft bônus']},
+{n:'A Entidade Celeste',icon:'✨',tags:['Cura','Suporte','Único'],short:'O único bruxo com cura real.',desc:'Curar Ferimentos expandido. Bálsamo de Cura: cure 1d6+CAR como ação bônus. Nível 6: PV temporários ao matar criaturas.',playstyle:'O único bruxo com cura real. Permite jogar bruxo em grupos que precisam de suporte.',powers:['Curar Ferimentos expandido','Bálsamo de Cura: 1d6+CAR ação bônus','PV temporários ao matar (nível 6)']},
+{n:'O Gênio',icon:'💫',tags:['Versatilidade','Descanso','Poderoso'],short:'Vaso do Gênio: 10 min dentro = descanso curto.',desc:'Vaso do Gênio: espaço extradimensional. 10 min dentro = descanso curto (máx 6 pessoas). Magias elementais expandidas por tipo de gênio.',playstyle:'Considerado um dos patronos mais fortes. O Vaso é extraordinariamente forte em dungeons longas.',powers:['Vaso do Gênio: 10 min = descanso curto','Magias elementais expandidas por tipo']},
+],
+};
+
+
+const FEATURES={
+paladino:{
+2:[{n:'Esmagar Divino',icon:'⚡',desc:'Ao acertar com arma corpo a corpo, gaste 1 espaço de magia: 2d8 de dano radiante extra (espaço 1º). Cada nível acima do 1º = +1d8 (máx 5d8). Contra mortos-vivos e demônios: +1d8 extra. Não requer ação — usado no momento do acerto.',detail:'Exemplo: espaço 2º nível = 3d8 radiante extra. Espaço 3º = 4d8. Pode usar em dois ataques se tiver Ataque Extra. É a maior fonte de burst de dano do paladino.'},
+{n:'Conjurar Magia',icon:'🔮',desc:'Você agora lança magias de paladino! Usa Carisma como atributo de conjuração. CD = 8 + prof + CAR. Bônus de ataque mágico = prof + CAR.',detail:'Nível 2: 2 espaços de 1º nível. Nível 3: 3 espaços de 1º. Nível 5: 4 de 1º e 2 de 2º. Magias preparadas = mod CAR + metade do nível.'}],
+3:[{n:'Saúde Divina',icon:'🛡',desc:'Você é imune a doenças naturais e mágicas permanentemente. Venenos e doenças como Mummy Rot, Sewer Plague etc. não te afetam.'},
+{n:'Juramento Sagrado',icon:'⚜',desc:'Você jura o Juramento que define sua vida como paladino. Isso concede: magias de juramento automáticas (sempre preparadas, não contam no limite), dois poderes de Canalizar Divindade únicos, e habilidades especiais nos níveis 7, 15 e 20.',detail:'As magias do juramento são um bônus permanente — nunca ocupam espaço no limite de magias preparadas.'}],
+5:[{n:'Ataque Extra',icon:'⚔',desc:'Quando você usa a ação Atacar, pode fazer DOIS ataques em vez de um.',detail:'Combinado com Esmagar Divino em ambos os ataques é devastador. Exemplo de turno ideal: Ataque 1 + Ataque 2 com Esmagar Divino 3º nível = 4d8 de radiante extra.'}],
+6:[{n:'Aura de Proteção',icon:'✨',desc:'Você e aliados amigáveis a 10 pés adicionam seu modificador de Carisma (mínimo +1) em TODOS os testes de resistência enquanto você estiver consciente.',detail:'Inclui TRs contra magias, medo, veneno, Fireball, Slow, etc. Com CAR +3, todos a 10ft ganham +3 em TODOS os TRs. Uma das habilidades mais poderosas do jogo em grupo. A aura se expande para 30ft no nível 18.'}],
+7:[{n:'Aura de Coragem',icon:'🦁',desc:'Você e aliados amigáveis a 10 pés não podem ser amedrontados enquanto você estiver consciente.',detail:'Imunidade ao estado Amedrontado é muito relevante — dragões, liches e muitos chefes usam medo. A aura expande para 30ft no nível 18.'}],
+10:[{n:'Imposição de Mãos como Ação Bônus',icon:'🤲',desc:'Você agora usa Imposição de Mãos como ação bônus em vez de ação. Permite curar E atacar no mesmo turno.',detail:'Imposição de Mãos: pool = 5 × nível. Gaste pontos para curar (1 ponto = 1 PV). Cure doenças/venenos por 5 pontos cada.'}],
+11:[{n:'Pureza de Espírito',icon:'☀',desc:'Você está permanentemente sob Proteção do Bem e do Mal. Aberrações, celestiais, elementais, fadas, demônios e mortos-vivos têm desvantagem em ataques contra você.',detail:'O efeito é permanente e não requer concentração.'}],
+14:[{n:'Toque Purificador',icon:'✋',desc:'Use ação para terminar magias em você ou aliado tocado. Pode fazê-lo um número de vezes = mod CAR por descanso longo.',detail:'Excelente para remover Hold Person, Slow, Polymorph forçado etc. Paladino com CAR +4 pode usar 4× por descanso longo.'}],
+},
+guerreiro:{
+2:[{n:'Surto de Ação',icon:'⚡',desc:'Uma vez por descanso curto, tome uma ação adicional em seu turno. Isso permite 4 ataques no mesmo turno (2 da ação + 2 do Surto) quando tiver Ataque Extra.'}],
+3:[{n:'Arquétipo Marcial',icon:'🎖',desc:'Você escolhe a especialização que define seu estilo de luta. Cada arquétipo concede habilidades nos níveis 3, 7, 10, 15 e 18.'}],
+5:[{n:'Ataque Extra',icon:'⚔',desc:'Quando usa a ação Atacar, faz DOIS ataques. Nível 11: TRÊS ataques. Nível 20: QUATRO ataques.'}],
+9:[{n:'Indomável',icon:'🔒',desc:'Pode rolar novamente um TR que falhou, usando o novo resultado. 1× por descanso longo (2× nível 13, 3× nível 17).'}],
+},
+mago:{
+2:[{n:'Recuperação Arcana',icon:'🔮',desc:'Uma vez por descanso curto, use ação para recuperar espaços com nível total ≤ metade do nível (arredondado para cima, máx 5º nível). Ex: mago nível 8 recupera até 4 níveis.'}],
+3:[{n:'Tradição Arcana',icon:'📚',desc:'Escolha a escola de magia. Cada escola concede habilidades nos níveis 2, 6, 10 e 14.'}],
+},
+clerigo:{
+2:[{n:'Canalizar Divindade',icon:'✝',desc:'Poder divino 1 uso por descanso curto (2 usos no nível 6). Cada domínio tem poderes únicos de Canalizar Divindade.'},
+{n:'Expulsar Mortos-Vivos',icon:'☀',desc:'Use Canalizar: mortos-vivos a 30ft fazem TR de SAB (CD 8+prof+SAB) ou ficam Expulsos por 1 min — devem fugir de você. Nível 5: CR ≤ 1/2 são destruídos automaticamente.'}],
+5:[{n:'Destruir Mortos-Vivos',icon:'💀',desc:'Quando mortos-vivos falham no TR de Expulsar, aqueles com CR ≤ certo valor são destruídos: CR 1/2 no nível 5, CR 1 no 8, CR 2 no 11, CR 3 no 14, CR 4 no 17.'}],
+10:[{n:'Intervenção Divina',icon:'🙏',desc:'Uma vez por descanso longo, peça ajuda à divindade. Role d100: se ≤ nível de clérigo, a divindade intervém. Nível 20: sempre funciona.'}],
+},
+barbaro:{
+2:[{n:'Ação Irresponsável',icon:'💢',desc:'Em Fúria: vantagem em todas as jogadas de ataque de Força. Porém, ataques contra você têm vantagem. Troca defesa por ofensa — mas a Fúria já dá resistência ao dano.'},
+{n:'Sentido de Perigo',icon:'👁',desc:'Vantagem em testes de Destreza contra efeitos que você pode ver (armadilhas visíveis, feitiços etc.) desde que não esteja cego, surdo ou incapacitado.'}],
+3:[{n:'Caminho Primitivo',icon:'🐾',desc:'Você escolhe o Caminho que define sua Fúria e concede habilidades nos níveis 3, 6, 10 e 14.'}],
+5:[{n:'Ataque Extra',icon:'⚔',desc:'Quando usa a ação Atacar, faz DOIS ataques.'},
+{n:'Golpe Rápido',icon:'⚡',desc:'Pode se mover entre cada ataque quando usa Ataque Extra.'}],
+7:[{n:'Instinto Selvagem',icon:'🦊',desc:'Vantagem em iniciativa. Não pode ser surpreendido consciente. Se surpreendido, pode entrar em Fúria como reação.'}],
+9:[{n:'Fúria Brutal',icon:'💥',desc:'Em Fúria: +1 dado de dano extra no primeiro ataque corpo a corpo por turno. Nível 13: +2 dados. Nível 17: +3 dados.'}],
+11:[{n:'Fúria Implacável',icon:'❤',desc:'Se cair a 0 PV em Fúria, role d20. Resultado 10+: fica com 1 PV. Pode salvar sua vida em momentos críticos.'}],
+},
+ladino:{
+2:[{n:'Ação Ardilosa',icon:'👤',desc:'Pode usar Desengajar ou Esconder como ação bônus em cada turno. Permite posicionar-se para Ataque Furtivo sem perder movimento ou ação principal.'}],
+3:[{n:'Arquétipo de Ladino',icon:'🗝',desc:'Escolha sua subclasse. Concede habilidades nos níveis 9, 13 e 17.'},
+{n:'Expertise',icon:'📈',desc:'Dobra o bônus de proficiência em 2 perícias ou ferramentas de ladrão. Nível 6: 2 perícias adicionais.'}],
+5:[{n:'Ataque Furtivo Maior',icon:'🗡',desc:'Dano de Ataque Furtivo aumenta +1d6 a cada dois níveis: nível 5 = 3d6, nível 7 = 4d6, nível 9 = 5d6.'},
+{n:'Evasão',icon:'🏃',desc:'TR de DES com sucesso = 0 dano (em vez de metade). Com falha = metade. Torna Bola de Fogo muito menos ameaçadora.'}],
+7:[{n:'Evasão Completa',icon:'💨',desc:'TR de DES com sucesso = 0 dano. Com falha = metade. Igual ao ladino — torna magias de área muito menos perigosas.'}],
+},
+monge:{
+2:[{n:'Ki',icon:'☯',desc:'Pontos de Ki = nível. Recupera com descanso curto/longo. Ação bônus: Flurry of Blows (2 ataques não-armados, 1 Ki), Passo do Vento (Desengajar+Afastar, 1 Ki), Mente Paciente (Esquivar, 1 Ki).'},
+{n:'Movimento Sem Armadura',icon:'🏃',desc:'Velocidade +10ft sem armadura. Aumenta: +15ft nível 6, +20ft nível 10, +25ft nível 14, +30ft nível 18. Nível 9: corra por superfícies verticais e sobre água!'}],
+3:[{n:'Tradição Monástica',icon:'🏯',desc:'Escolha o caminho que define sua arte marcial. Concede habilidades nos níveis 6, 11 e 17.'},
+{n:'Desviar Projéteis',icon:'🛡',desc:'Quando recebe dano de projétil, use Reação para reduzir em 1d10+DES+nível. Se reduzir a 0: pode devolver o projétil (1 Ki, ataque: prof+DES, dano: 1d6+DES).'}],
+5:[{n:'Ataque Extra',icon:'⚔',desc:'Quando usa a ação Atacar, faz DOIS ataques.'},
+{n:'Atordoamento',icon:'⚡',desc:'Gaste 1 Ki ao acertar: alvo faz TR de CON (CD 8+prof+SAB) ou fica Atordoado até seu próximo turno. Atordoado = incapacitado, falha automática FOR/DES TRs, ataques com vantagem.'}],
+6:[{n:'Golpes Ki',icon:'✨',desc:'Seus ataques não-armados e de armas de monge contam como mágicos. Fundamental contra demônios, mortos-vivos e criaturas com resistência a não-mágico.'}],
+7:[{n:'Evasão',icon:'💨',desc:'TR de DES com sucesso = 0 dano. Com falha = metade.'},
+{n:'Serenidade Mental',icon:'🧘',desc:'Vantagem em testes de resistência contra ser Encantado ou Amedrontado.'}],
+},
+feiticeiro:{
+2:[{n:'Fonte Feiticeira',icon:'🌊',desc:'Pontos de Feitiçaria = nível. Recupera no descanso longo. Absorção (espaço → pontos: nível = pontos) ou Criar Espaço (1º = 2 pts, 2º = 3, 3º = 5, 4º = 6, 5º = 7).'}],
+3:[{n:'Metamagia',icon:'🔀',desc:'Escolha 2 opções de Metamagia. Nível 10: +1 opção. Nível 17: +1 opção (total 4).'}],
+},
+bruxo:{
+2:[{n:'Invocações Eldritch',icon:'📜',desc:'Escolha 2 invocações (total cresce: 3 no nível 5, 4 no 7, 5 no 9, 6 no 12, 7 no 15, 8 no 18). Invocações dão poderes passivos permanentes ou magias à vontade.'}],
+3:[{n:'Favor do Patrono (Pacto)',icon:'🤝',desc:'Escolha um Pacto que define seu estilo. Dá acesso a habilidades e invocações especiais apenas daquele pacto.'}],
+11:[{n:'Arcana Mística',icon:'⭐',desc:'1× por descanso longo, lance magia de 6º nível sem espaço. Nível 13: +7º. Nível 15: +8º. Nível 17: +9º.'}],
+},
+bardo:{
+2:[{n:'Canção de Repouso',icon:'🎵',desc:'Aliados que ouvem sua música durante descanso curto recuperam PV extras ao usar Dados de Vida: +1d6 (nível 2-8), +1d8 (9-12), +1d10 (13-16), +1d12 (17-20).'},
+{n:'Versatilidade Mágica',icon:'🔄',desc:'Ao subir de nível, pode trocar UMA magia conhecida por outra do mesmo nível ou inferior.'}],
+3:[{n:'Expertise',icon:'📈',desc:'Dobra proficiência em 2 perícias escolhidas. Nível 10: +2 mais. Com CAR 20 e prof +4, Persuasão chega a +13.'},
+{n:'Colégio do Bardo',icon:'🎭',desc:'Escolha o colégio que define seu estilo. Concede habilidades nos níveis 6 e 14.'}],
+5:[{n:'Fonte de Inspiração',icon:'💡',desc:'Recupera Inspirações no descanso CURTO (antes apenas no longo). Com CAR alto, terá muitas inspirações para distribuir.'},
+{n:'Dado de Inspiração d8',icon:'🎲',desc:'O dado de Inspiração sobe para d8 (era d6). Nível 10 = d10. Nível 15 = d12.'}],
+6:[{n:'Contra-encanto',icon:'🎶',desc:'Ação para performance: aliados a 30ft têm vantagem em TR contra Encantado ou Amedrontado até início do próximo turno.'}],
+9:[{n:'Segredos Mágicos',icon:'📖',desc:'Aprenda 2 magias de QUALQUER outra classe. Contam como magias de bardo. Ótimo para Bola de Fogo, Cura, etc.'}],
+},
+druida:{
+2:[{n:'Forma Selvagem',icon:'🐺',desc:'2× por descanso curto, use ação para transformar em besta (CR ≤ 1/4 nível 2, CR ≤ 1/2 nível 4, CR ≤ 1 nível 8). Mantém INT, SAB e CAR. Ganha PV da forma.'}],
+3:[{n:'Círculo Druídico',icon:'🌿',desc:'Escolha o círculo que define sua conexão com a natureza. Concede habilidades nos níveis 6, 10 e 14.'}],
+},
+patrulheiro:{
+2:[{n:'Estilo de Luta',icon:'⚔',desc:'Escolha um Estilo de Combate. Define sua abordagem principal ao combate.'}],
+3:[{n:'Conscientização Primitiva',icon:'👃',desc:'Gaste espaço de magia: detecte criaturas do seu Inimigo Favorito a 1 milha por 1 min por nível do espaço.'},
+{n:'Arquétipo do Patrulheiro',icon:'🎯',desc:'Escolha sua subclasse. Concede habilidades nos níveis 7, 11 e 15.'}],
+5:[{n:'Ataque Extra',icon:'⚔',desc:'Quando usa a ação Atacar, faz DOIS ataques.'}],
+8:[{n:'Passo das Terras',icon:'🌲',desc:'Ignorar terreno difícil não mágico. Não pode ser rastreado por meios não mágicos. Vantagem em TRs para evitar plantas mágicas restritivas.'}],
+10:[{n:'Esconder-se em Plena Vista',icon:'👻',desc:'Gastando 1 minuto, pode se camuflar e ficar oculto sem cobertura (CD 10+percepção passiva inimigo). Enquanto imóvel, fica oculto.'}],
+},
+};
+
+
+let S={name:'',level:0,cls:'',race:'',subrace:'',background:'',subclass:'',stats:{str:10,dex:10,con:10,int:10,wis:10,cha:10},hp:0,prof:2,newHP:0,hpGained:0,asiChoice:'',asiStat1:'',asiStat2:'',useFeat:false,featChoice:'',fightingStyle:'',subclassChoice:'',oathType:'',newSpells:[],newCantrips:[],replaceSpell:'',invocations:[],metamagic:[],pactChoice:'',newLevel:0,steps:[],curStep:0,prepSpells:0};
+function getMod(v){return Math.floor(((parseInt(v)||10)-10)/2);}
+function modS(v){const m=getMod(v);return(m>=0?'+':'')+m;}
+function isFC(c){return['bardo','clerigo','druida','feiticeiro','mago'].includes(c);}
+function isHC(c){return['paladino','patrulheiro'].includes(c);}
+function isWL(c){return c==='bruxo';}
+function isKnown(c){return['bardo','feiticeiro','bruxo','patrulheiro'].includes(c);}
+function isPrep(c){return['clerigo','druida','mago','paladino'].includes(c);}
+function getSlots(c,l){if(isFC(c))return FULL_SLOTS[l]||[];if(isHC(c))return HALF_SLOTS[l]||[];return null;}
+function calcPrep(c,l,st){if(!isPrep(c))return 0;const k=c==='mago'?'int':c==='paladino'?'cha':'wis';return Math.max(1,c==='paladino'?Math.floor(l/2)+getMod(st[k]):l+getMod(st[k]));}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
+function toggleDetail(btn){const d=btn.nextElementSibling;const o=d.classList.toggle('open');btn.textContent=o?'▲ Fechar detalhes':'▼ Ver detalhes completos';}
+
+function buildSteps(){
+  const steps=['personagem','pv'];
+  const l=S.newLevel,c=S.cls;
+  if((ASI[c]||[]).includes(l))steps.push('asi');
+  if((c==='paladino'||c==='guerreiro'||c==='patrulheiro')&&l===2)steps.push('estilo');
+  if(SL_LVL[c]===l&&!S.subclass)steps.push('subclasse');
+  if(c==='paladino'&&l===3)steps.push('juramento');
+  if(c==='bruxo'&&l===3)steps.push('pacto');
+  if(c==='bruxo'&&[2,5,7,9,12,15,18].includes(l))steps.push('invocacoes');
+  if(c==='feiticeiro'&&[3,10,17].includes(l))steps.push('metamagia');
+  if(['bardo','clerigo','druida','feiticeiro','mago','bruxo','paladino','patrulheiro','monge'].includes(c)&&l>=(isHC(c)?2:1))steps.push('magias');
+  steps.push('habilidades');
+  steps.push('resumo');
+  S.steps=steps;
+}
+
+const SNAMES={personagem:'Personagem',pv:'PV',asi:'Atributos',estilo:'Estilo',subclasse:'Subclasse',juramento:'Juramento',pacto:'Pacto',invocacoes:'Invocações',metamagia:'Metamagia',magias:'Magias',habilidades:'Habilidades',resumo:'Resumo'};
+function updateProg(){
+  const tot=S.steps.length,cur=S.curStep;
+  document.getElementById('pfill').style.width=`${(cur/Math.max(1,tot-1))*100}%`;
+  document.getElementById('slabels').innerHTML=S.steps.map((s,i)=>`<div class="slabel ${i===cur?'act':i<cur?'don':''}">${SNAMES[s]||s}</div>`).join('');
+  document.getElementById('sdots').innerHTML=S.steps.map((s,i)=>`<div class="sdot ${i===cur?'act':i<cur?'don':''}"></div>`).join('');
+}
+
+function render(){
+  const sw=document.getElementById('sw');
+  const step=S.steps[S.curStep];
+  const back=S.curStep>0?`<button class="btn btn-s" onclick="nav(-1)">← Voltar</button>`:'';
+  const next=step!=='resumo'?`<button class="btn btn-p" onclick="nav(1)">Avançar →</button>`:'';
+  sw.innerHTML=`<div class="screen active" id="cs">${renderStep(step)}<div class="navb">${back}${next}</div></div>`;
+  updateProg();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function nav(d){
+  const step=S.steps[S.curStep];
+  if(d===1&&!validate(step))return;
+  if(d===1){commit(step);if(step==='personagem'){S.curStep=1;render();return;}}
+  S.curStep+=d;
+  if(S.curStep>=S.steps.length){finalize();return;}
+  render();
+}
+
+function validate(step){
+  if(step==='personagem'){
+    const n=(document.getElementById('c-name')?.value||'').trim();
+    const l=document.getElementById('c-level')?.value;
+    const c=document.getElementById('c-class')?.value;
+    const r=document.getElementById('c-race')?.value;
+    const h=document.getElementById('c-hp')?.value;
+    const p=document.getElementById('c-prof')?.value;
+    if(!n||!l||!c||!r||!h||!p){showToast('Preencha todos os campos!');return false;}
+    return true;
+  }
+  if(step==='pv'){if(S.newHP<=0){showToast('Role ou escolha a média de PV!');return false;}return true;}
+  if(step==='asi'){
+    if(S.useFeat){if(!S.featChoice){showToast('Escolha um talento!');return false;}return true;}
+    if(S.asiChoice==='plus2'){if(!S.asiStat1){showToast('Escolha o atributo para +2!');return false;}return true;}
+    if(S.asiChoice==='plus1x2'){if(!S.asiStat1||!S.asiStat2){showToast('Escolha dois atributos!');return false;}return true;}
+    showToast('Escolha como distribuir a melhoria!');return false;
+  }
+  if(step==='estilo'){if(!S.fightingStyle){showToast('Escolha um estilo de combate!');return false;}return true;}
+  if(step==='subclasse'){if(!S.subclassChoice){showToast('Escolha sua subclasse!');return false;}return true;}
+  if(step==='juramento'){if(!S.oathType){showToast('Escolha seu juramento!');return false;}return true;}
+  if(step==='pacto'){if(!S.pactChoice){showToast('Escolha seu pacto!');return false;}return true;}
+  if(step==='invocacoes'){const req=reqInv();if(S.invocations.length<req){showToast(`Escolha ${req} invocação(ões)!`);return false;}return true;}
+  if(step==='metamagia'){if(S.metamagic.length<2){showToast('Escolha 2 opções de Metamagia!');return false;}return true;}
+  return true;
+}
+
+function commit(step){
+  if(step==='personagem'){
+    S.name=(document.getElementById('c-name').value||'').trim();
+    S.level=parseInt(document.getElementById('c-level').value);
+    S.cls=document.getElementById('c-class').value;
+    S.race=document.getElementById('c-race').value;
+    S.hp=parseInt(document.getElementById('c-hp').value);
+    S.prof=parseInt(document.getElementById('c-prof').value);
+    S.subrace=document.getElementById('c-subrace')?.value||'';
+    S.background=document.getElementById('c-background')?.value||'';
+    S.subclass=document.getElementById('c-subclass')?.value||'';
+    SK.forEach(k=>{S.stats[k]=parseInt(document.getElementById('s-'+k)?.value)||10;});
+    S.newLevel=S.level+1;
+    buildSteps();
+  }
+}
+
+
+function renderStep(step){
+  const R={personagem:rPers,pv:rPV,asi:rASI,estilo:rEstilo,subclasse:rSub,juramento:rJuramento,pacto:rPacto,invocacoes:rInvocacoes,metamagia:rMeta,magias:rMagias,habilidades:rHabs,resumo:rResumo};
+  return R[step]?R[step]():`<p>Passo: ${step}</p>`;
+}
+
+function rPers(){
+  return`<div class="ey">Passo Inicial</div><div class="st">Seu Personagem</div><div class="sd">Insira os dados atuais. Vamos evoluir a partir daqui.</div>
+  <div class="g2">
+    <div class="fw"><div class="fl">Nome</div><input class="fi" id="c-name" placeholder="Nome do personagem" value="${S.name}"></div>
+    <div class="fw"><div class="fl">Nível Atual</div><select class="fi" id="c-level"><option value="">Selecione o nível atual</option>${[...Array(19)].map((_,i)=>`<option value="${i+1}"${S.level===i+1?' selected':''}>${i+1}º Nível</option>`).join('')}</select></div>
+    <div class="fw"><div class="fl">Classe</div><select class="fi" id="c-class"><option value="">Selecione a classe</option>${Object.entries(CN).map(([k,v])=>`<option value="${k}"${S.cls===k?' selected':''}>${v}</option>`).join('')}</select></div>
+    <div class="fw"><div class="fl">Raça</div><select class="fi" id="c-race" onchange="updSubraceSelect(this.value)"><option value="">Selecione a raça</option>${['humano','elfo','anao','halfling','gnomo','meio-elfo','meio-orc','tiefling','draconato','tabaxi'].map(r=>`<option value="${r}"${S.race===r?' selected':''}>${r.charAt(0).toUpperCase()+r.slice(1)}</option>`).join('')}</select></div>
+  </div>
+  <div class="fw"><div class="fl">Sub-raça (se aplicável)</div>
+    <select class="fi sm" id="c-subrace" onchange="updSubrace()">
+      ${buildSubraceSelect(S.race, S.subrace)}
+    </select>
+    <div id="subrace-desc" style="margin-top:8px;display:none"></div>
+  </div>
+  <div class="fw"><div class="fl">Antecedente</div>
+    <select class="fi sm" id="c-background" onchange="updBackground()">
+      <option value="">Selecione o antecedente</option>
+      ${Object.entries(BACKGROUNDS).map(([k,v])=>`<option value="${k}"${S.background===k?' selected':''}>${v.icon} ${k.charAt(0).toUpperCase()+k.slice(1).replace(/_/g,' ')}</option>`).join('')}
+    </select>
+    <div id="bg-desc" style="display:none;margin-top:8px"></div>
+  </div>
+  <div class="fw"><div class="fl">Subclasse Atual (se já escolheu)</div><input class="fi sm" id="c-subclass" placeholder="Ex: Juramento de Devoção, Caminho do Berserker..." value="${S.subclass}"></div>
+  <div class="panel"><div class="ptitle">⚔ Atributos Atuais</div>
+    <div class="g6">${SK.map((k,i)=>`<div class="sbox"><div class="sbox-lbl">${SL[i]}</div><input id="s-${k}" type="number" min="1" max="30" value="${S.stats[k]}" oninput="updM('${k}')"><div class="sbox-mod" id="m-${k}">${modS(S.stats[k])}</div></div>`).join('')}</div>
+    <div class="info" style="margin-top:12px">Insira os valores <strong>atuais</strong> já com modificadores raciais e melhorias anteriores.</div>
+  </div>
+  <div class="g2">
+    <div class="fw"><div class="fl">Pontos de Vida Atuais (Máx)</div><input class="fi sm" id="c-hp" type="number" min="1" placeholder="Ex: 26" value="${S.hp||''}"></div>
+    <div class="fw"><div class="fl">Bônus de Proficiência Atual</div><input class="fi sm" id="c-prof" type="number" min="2" max="6" placeholder="2, 3, 4, 5 ou 6" value="${S.prof||''}"></div>
+  </div>`;
+}
+function updM(k){const v=document.getElementById('s-'+k)?.value;if(v)document.getElementById('m-'+k).textContent=modS(v);}
+
+function rPV(){
+  const hd=HD[S.cls]||8,cm=getMod(S.stats.con),avg=Math.max(1,Math.floor(hd/2)+1+cm);
+  return`<div class="ey">Pontos de Vida</div><div class="st">Rolar PV para o Nível ${S.newLevel}</div><div class="sd">Role o dado de vida e some com o modificador de Constituição.</div>
+  <div class="panel"><div class="ptitle">❤ Dado de Vida: d${hd} · Mod. CON: ${modS(S.stats.con)}</div>
+    <div class="info"><strong>Como funciona:</strong> Role um d${hd} e some ${modS(S.stats.con)} (CON). O mínimo ganho é sempre 1 PV. Escalar com nível do personagem, não do espaço.</div>
+    <div class="dbox"><div class="dicon">🎲</div><div class="dq"><p>Role um <strong style="color:var(--violet2)">d${hd}</strong> fisicamente e insira o resultado (1–${hd}):</p>
+      <div class="drow"><input class="di" type="number" id="hp-r" min="1" max="${hd}" placeholder="?" oninput="onHPR(${hd},${cm})"><span style="font-family:'Inter';font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em">resultado d${hd}</span></div>
+    </div></div>
+    <div class="orn">ou use a média garantida</div>
+    <button onclick="useAvg(${avg})" style="width:100%;padding:13px;border-radius:6px;background:rgba(155,109,255,.08);border:1px solid var(--border2);cursor:pointer;font-family:'Inter';font-size:11px;font-weight:700;letter-spacing:.15em;color:var(--violet2);text-transform:uppercase" onmouseover="this.style.background='rgba(155,109,255,.16)'" onmouseout="this.style.background='rgba(155,109,255,.08)'">Usar Média Garantida: +${avg} PV</button>
+    <div id="hp-res" style="display:none">
+      <div class="hp-track"><div style="font-size:22px">❤</div>
+        <div style="flex:1"><div style="font-family:'Cinzel';font-size:12px;color:var(--white)">Pontos de Vida</div><div style="font-family:'Inter';font-size:11px;color:var(--muted);margin-top:2px" id="hp-txt"></div><div class="hp-bar"><div class="hp-fill" style="width:100%"></div></div></div>
+        <div style="font-family:'Cinzel Decorative';font-size:24px;color:var(--green2)" id="hp-new"></div>
+      </div>
+    </div>
+  </div>`;
+}
+function onHPR(hd,cm){const v=parseInt(document.getElementById('hp-r').value);if(!v||v<1||v>hd)return;const g=Math.max(1,v+cm);S.hpGained=g;S.newHP=S.hp+g;showHPR(`d${hd}: ${v} ${cm>=0?'+':''} ${cm} CON = +${g}`);}
+function useAvg(a){S.hpGained=a;S.newHP=S.hp+a;if(document.getElementById('hp-r'))document.getElementById('hp-r').value='';showHPR(`Média: +${a} PV`);}
+function showHPR(txt){document.getElementById('hp-res').style.display='block';document.getElementById('hp-txt').textContent=`${S.hp} + ${S.hpGained} (${txt})`;document.getElementById('hp-new').textContent=S.newHP;showToast(`+${S.hpGained} PV! Total: ${S.newHP}`);}
+
+function rASI(){
+  const pickHTML=()=>{
+    if(S.useFeat)return`<div class="orn">Escolha um Talento</div><div class="info g"><strong>Clique em "▼ Ver detalhes"</strong> para entender cada talento antes de escolher.</div>
+      <div class="cc-grid">${FEATS.map(f=>`<div class="cc ${S.featChoice===f.n?'sel':''}" onclick="pickFeat('${f.n.replace(/'/g,"\\'")}',this)"><span class="cc-icon">${f.icon}</span><div class="cc-name">${f.n}</div><div class="cc-tag">${f.tags.join(' · ')}</div><div class="cc-desc">${f.short}</div><button class="expand-btn" onclick="event.stopPropagation();toggleDetail(this)">▼ Ver detalhes completos</button><div class="cc-detail"><p>${f.desc}</p><div class="tag-row">${f.tags.map(t=>`<span class="tag tv">${t}</span>`).join('')}</div></div></div>`).join('')}</div>`;
+    if(S.asiChoice==='plus2')return`<div class="orn">Escolha o atributo para +2 (máx 20)</div><div class="g3">${SK.map((k,i)=>`<div class="cc ${S.asiStat1===k?'sel':''}" onclick="pS1_2('${k}')" ${S.stats[k]>=20?'style="opacity:.35;pointer-events:none"':''}><div class="cc-name">${SF[i]}</div><div class="cc-desc">${S.stats[k]} → <strong style="color:var(--green2)">${Math.min(20,S.stats[k]+2)}</strong> (${modS(S.stats[k])} → ${modS(Math.min(20,S.stats[k]+2))})</div></div>`).join('')}</div>`;
+    if(S.asiChoice==='plus1x2')return`<div class="orn">Clique em 2 atributos diferentes (+1 cada)</div><div class="g3">${SK.map((k,i)=>`<div class="cc ${S.asiStat1===k||S.asiStat2===k?'sel':''}" onclick="pS1x2('${k}')" ${S.stats[k]>=20?'style="opacity:.35;pointer-events:none"':''}><div class="cc-name">${SF[i]}</div><div class="cc-desc">${S.stats[k]} → <strong style="color:var(--green2)">${Math.min(20,S.stats[k]+1)}</strong></div></div>`).join('')}</div>`;
+    return'';
+  };
+  return`<div class="ey">Melhoria de Atributo</div><div class="st">Atributo ou Talento</div><div class="sd">No nível ${S.newLevel}, você escolhe como crescer. Leia as opções antes de decidir.</div>
+  <div class="g3" style="margin-bottom:14px">
+    <div class="cc ${S.asiChoice==='plus2'&&!S.useFeat?'sel':''}" onclick="selASI('plus2')"><span class="cc-icon">⬆</span><div class="cc-name">+2 em um Atributo</div><div class="cc-desc">Todo o crescimento focado num único atributo. Máximo 20. Melhor para maximizar seu atributo principal.</div></div>
+    <div class="cc ${S.asiChoice==='plus1x2'&&!S.useFeat?'sel':''}" onclick="selASI('plus1x2')"><span class="cc-icon">↑↑</span><div class="cc-name">+1 em dois Atributos</div><div class="cc-desc">Distribua entre dois atributos. Útil quando você quer equilibrar dois importantes ao mesmo tempo.</div></div>
+    <div class="cc ${S.useFeat?'sel':''}" onclick="selASI('feat')"><span class="cc-icon">★</span><div class="cc-name">Talento (Feat)</div><div class="cc-desc">Habilidade especial única. Muitos talentos também dão +1 num atributo além da habilidade especial.</div></div>
+  </div>
+  <div id="asi-pick">${pickHTML()}</div>`;
+}
+function selASI(t){S.useFeat=t==='feat';S.asiChoice=t==='feat'?'':t;S.asiStat1='';S.asiStat2='';S.featChoice='';render();}
+function pickFeat(n,el){S.featChoice=n;document.querySelectorAll('#asi-pick .cc').forEach(c=>c.classList.remove('sel'));el.classList.add('sel');}
+function pS1_2(k){S.asiStat1=k;document.querySelectorAll('#asi-pick .cc').forEach((c,i)=>c.classList.toggle('sel',SK[i]===k));showToast(SF[SK.indexOf(k)]+' +2!');}
+function pS1x2(k){
+  if(S.asiStat1===k)S.asiStat1='';else if(S.asiStat2===k)S.asiStat2='';
+  else if(!S.asiStat1)S.asiStat1=k;else if(!S.asiStat2&&k!==S.asiStat1)S.asiStat2=k;else return;
+  document.querySelectorAll('#asi-pick .cc').forEach((c,i)=>c.classList.toggle('sel',SK[i]===S.asiStat1||SK[i]===S.asiStat2));
+  if(S.asiStat1&&S.asiStat2)showToast(`+1 ${SF[SK.indexOf(S.asiStat1)]} e +1 ${SF[SK.indexOf(S.asiStat2)]}`);
+}
+
+function rEstilo(){
+  const opts=FIGHTING_STYLES[S.cls]||[];
+  return`<div class="ey">Estilo de Combate</div><div class="st">Escolha seu Estilo</div><div class="sd">O estilo define como você luta. Escolha permanente. Leia os detalhes antes de decidir.</div>
+  <div class="cc-grid">${opts.map(o=>`<div class="cc ${S.fightingStyle===o.n?'sel':''}" onclick="pickSty('${o.n}',this)"><span class="cc-icon">${o.icon}</span><div class="cc-name">${o.n}</div><div class="cc-tag">${o.tags.join(' · ')}</div><div class="cc-desc">${o.short}</div><button class="expand-btn" onclick="event.stopPropagation();toggleDetail(this)">▼ Ver detalhes completos</button><div class="cc-detail"><p>${o.desc}</p><div class="tag-row">${o.tags.map(t=>`<span class="tag tv">${t}</span>`).join('')}</div></div></div>`).join('')}</div>`;
+}
+function pickSty(n,el){S.fightingStyle=n;document.querySelectorAll('#cs .cc').forEach(c=>c.classList.remove('sel'));el.classList.add('sel');}
+
+function rSub(){
+  const opts=SUBCLASSES[S.cls]||[];
+  return`<div class="ey">Subclasse</div><div class="st">Escolha sua Especialização</div><div class="sd">No nível ${S.newLevel}, você define o caminho de ${CN[S.cls]||S.cls}. Esta é uma escolha <strong style="color:var(--red)">permanente</strong> — leia tudo antes de decidir!</div>
+  <div class="cc-grid">${opts.map(o=>`<div class="cc ${S.subclassChoice===o.n?'sel':''}" onclick="pickSub('${o.n.replace(/'/g,"\\'")}',this)"><span class="cc-icon">${o.icon}</span><div class="cc-name">${o.n}</div><div class="cc-tag">${o.tags.join(' · ')}</div><div class="cc-desc">${o.short}</div><button class="expand-btn" onclick="event.stopPropagation();toggleDetail(this)">▼ Ver detalhes completos</button><div class="cc-detail"><p>${o.desc}</p><p style="margin-top:8px"><strong>Como se joga:</strong> ${o.playstyle}</p><p style="margin-top:6px"><strong>Poderes principais:</strong></p>${o.powers.map(p=>`<p>• ${p}</p>`).join('')}<div class="tag-row">${o.tags.map(t=>`<span class="tag tv">${t}</span>`).join('')}</div></div></div>`).join('')}</div>`;
+}
+function pickSub(n,el){S.subclassChoice=n;document.querySelectorAll('#cs .cc').forEach(c=>c.classList.remove('sel'));el.classList.add('sel');}
+
+function rJuramento(){
+  const oths=Object.values(OATHS);
+  const selO=S.oathType?Object.values(OATHS).find(o=>o.n===S.oathType):null;
+  return`<div class="ey">Juramento Sagrado</div><div class="st">Escolha seu Juramento</div><div class="sd">No nível 3, você jura o Juramento que define sua vida como paladino. Cada juramento concede magias automáticas, dois poderes de Canalizar Divindade e uma Aura no nível 7. Escolha <strong style="color:var(--red)">permanente</strong>!</div>
+  <div class="info g"><strong>Magias de Juramento</strong> ficam sempre preparadas e <strong>não contam contra seu limite</strong>. São bônus gratuitos automáticos.</div>
+  <div class="cc-grid">${oths.map(o=>`<div class="cc ${S.oathType===o.n?'sel':''}" onclick="pickOath('${o.n}',this)"><span class="cc-icon">${o.icon}</span><div class="cc-name">Juramento de ${o.n}</div><div class="cc-tag">${o.tags.join(' · ')}</div><div class="cc-desc">${o.short}</div><button class="expand-btn" onclick="event.stopPropagation();toggleDetail(this)">▼ Ver detalhes completos</button><div class="cc-detail"><p>${o.desc}</p><p style="margin-top:8px"><strong>Como se joga:</strong> ${o.playstyle}</p><p style="margin-top:8px"><strong>Poderes de Canalizar Divindade:</strong></p>${o.powers.map(p=>`<p>• ${p}</p>`).join('')}<p style="margin-top:8px"><strong>Magias do Juramento (automáticas por nível do personagem):</strong></p>${Object.entries(o.spells).map(([l,ss])=>`<p>• Nível ${l}: ${ss.join(', ')}</p>`).join('')}<div class="tag-row">${o.tags.map(t=>`<span class="tag tg">${t}</span>`).join('')}</div></div></div>`).join('')}</div>
+  ${selO?`<div class="panel"><div class="ptitle">📖 Magias Automáticas — Juramento de ${selO.n} (Nível 3)</div>
+    <div class="spool">${(selO.spells[3]||[]).map(s=>`<span class="stag oath">${s}</span>`).join('')}</div>
+    <div class="info g">Essas magias estão <strong>sempre preparadas</strong> e não ocupam espaço no limite de magias preparadas.</div>
+  </div>`:''}`;
+}
+function pickOath(n,el){S.oathType=n;document.querySelectorAll('#cs > .cc-grid .cc').forEach(c=>c.classList.remove('sel'));el.classList.add('sel');render();setTimeout(()=>document.querySelectorAll('#cs .cc').forEach(c=>{if(c.querySelector('.cc-name')?.textContent.includes(n))c.classList.add('sel');}),20);}
+
+function rPacto(){
+  return`<div class="ey">Favor do Patrono</div><div class="st">Escolha seu Pacto</div><div class="sd">No nível 3, seu patrono te concede um presente especial. Leia cada opção antes de decidir.</div>
+  <div class="g3">${PACTS.map(p=>`<div class="cc ${S.pactChoice===p.n?'sel':''}" onclick="pickPact('${p.n}',this)"><span class="cc-icon">${p.icon}</span><div class="cc-name">${p.n}</div><div class="cc-tag">${p.tags.join(' · ')}</div><div class="cc-desc">${p.short}</div><button class="expand-btn" onclick="event.stopPropagation();toggleDetail(this)">▼ Ver detalhes completos</button><div class="cc-detail"><p>${p.desc}</p><p style="margin-top:8px"><strong>Como se joga:</strong> ${p.playstyle}</p><div class="tag-row">${p.tags.map(t=>`<span class="tag tv">${t}</span>`).join('')}</div></div></div>`).join('')}</div>`;
+}
+function pickPact(n,el){S.pactChoice=n;document.querySelectorAll('#cs .cc').forEach(c=>c.classList.remove('sel'));el.classList.add('sel');}
+
+function reqInv(){const t={2:2,5:3,7:4,9:5,12:6,15:7,18:8},p={2:0,5:2,7:3,9:4,12:5,15:6,18:7};return(t[S.newLevel]||2)-(p[S.level]||0);}
+function rInvocacoes(){
+  const req=reqInv();
+  const avail=INVOCATIONS.filter(iv=>S.newLevel>=iv.req);
+  return`<div class="ey">Invocações Eldritch</div><div class="st">Escolha ${req} Invocação${req>1?'s':''}</div><div class="sd">Fragmentos de conhecimento proibido. Cada invocação dá um poder permanente. Leia os detalhes!</div>
+  <div class="info">Selecione <strong>${req} invocação${req>1?'s':''}</strong>. Selecionadas: <span id="inv-c">${S.invocations.length}</span> de ${req}</div>
+  <div class="cc-grid">${avail.map(iv=>`<div class="cc ${S.invocations.includes(iv.n)?'sel':''}" onclick="togInv('${iv.n}',this)"><span class="cc-icon">${iv.icon}</span><div class="cc-name">${iv.n}</div><div class="cc-tag">Req: Nível ${iv.req} · ${iv.tags.join(' · ')}</div><div class="cc-desc">${iv.short}</div><button class="expand-btn" onclick="event.stopPropagation();toggleDetail(this)">▼ Ver detalhes</button><div class="cc-detail"><p>${iv.desc}</p><div class="tag-row">${iv.tags.map(t=>`<span class="tag tv">${t}</span>`).join('')}</div></div></div>`).join('')}</div>`;
+}
+function togInv(n,el){
+  const req=reqInv();
+  if(S.invocations.includes(n))S.invocations=S.invocations.filter(x=>x!==n);
+  else if(S.invocations.length<req)S.invocations.push(n);
+  else{showToast(`Máximo ${req}!`);return;}
+  el.classList.toggle('sel',S.invocations.includes(n));
+  const c=document.getElementById('inv-c');if(c)c.textContent=S.invocations.length;
+}
+
+function rMeta(){
+  return`<div class="ey">Metamagia</div><div class="st">Escolha 2 Opções de Metamagia</div><div class="sd">Feiticeiros moldam a magia de formas impossíveis. Leia cada opção — define seu estilo de jogo.</div>
+  <div class="info">Selecione <strong>2 opções</strong>. Selecionadas: <span id="meta-c">${S.metamagic.length}</span> de 2</div>
+  <div class="cc-grid">${METAMAGIC.map(m=>`<div class="cc ${S.metamagic.includes(m.n)?'sel':''}" onclick="togMeta('${m.n}',this)"><span class="cc-icon">${m.icon}</span><div class="cc-name">${m.n}</div><div class="cc-tag">${m.tags.join(' · ')}</div><div class="cc-desc">${m.short}</div><button class="expand-btn" onclick="event.stopPropagation();toggleDetail(this)">▼ Ver detalhes</button><div class="cc-detail"><p>${m.desc}</p><div class="tag-row">${m.tags.map(t=>`<span class="tag tv">${t}</span>`).join('')}</div></div></div>`).join('')}</div>`;
+}
+function togMeta(n,el){
+  if(S.metamagic.includes(n))S.metamagic=S.metamagic.filter(x=>x!==n);
+  else if(S.metamagic.length<2)S.metamagic.push(n);
+  else{showToast('Máximo 2!');return;}
+  el.classList.toggle('sel',S.metamagic.includes(n));
+  const c=document.getElementById('meta-c');if(c)c.textContent=S.metamagic.length;
+}
+
+
+function rMagias(){
+  const c=S.cls,l=S.newLevel,ol=S.level;let html='';
+  if(isFC(c)||isHC(c)){
+    const ns=getSlots(c,l)||[],os=getSlots(c,ol)||[];
+    const gained=ns.map((v,i)=>({l:i+1,d:(v||0)-(os[i]||0)})).filter(x=>x.d>0);
+    const maxL=ns.filter(v=>v>0).length;
+    html+=`<div class="panel"><div class="ptitle">🔮 Espaços de Magia</div>
+      <div class="info"><strong>Espaços de magia</strong> são os "slots" gastos ao lançar magias acima de truques. Recuperam todos após <strong>descanso longo</strong>.</div>
+      <table class="stbl"><tr><th>Nível Personagem</th>${[...Array(maxL)].map((_,i)=>`<th>${i+1}º</th>`).join('')}</tr>
+        <tr class="nr"><td style="text-align:left;font-size:11px;color:var(--gold2);font-family:'Cinzel'">→ Nível ${l}</td>${ns.slice(0,maxL).map((v,i)=>`<td class="${v>(os[i]||0)?'hl':''}">${v||'-'}</td>`).join('')}</tr>
+        <tr><td style="text-align:left;font-size:11px;color:var(--muted);font-family:'Cinzel'">Nível ${ol}</td>${ns.slice(0,maxL).map((_,i)=>`<td style="color:var(--muted)">${os[i]||'-'}</td>`).join('')}</tr>
+      </table>
+      ${gained.length?`<div class="info gr">Ganhou: ${gained.map(g=>`<strong>+${g.d} espaço${g.d>1?'s':''} de ${g.l}º nível</strong>`).join(', ')}</div>`:''}</div>`;
+  }
+  if(isWL(c)){const ws=WL_SLOTS[l];html+=`<div class="panel"><div class="ptitle">🔮 Espaços de Magia do Bruxo</div><div class="info"><strong>${ws.s}</strong> espaço${ws.s>1?'s':''} de <strong>${ws.l}º nível</strong>. O bruxo tem poucos slots mas todos são do nível máximo disponível. Recupera no <strong>descanso curto</strong>! Não precisa esperar descanso longo.</div></div>`;}
+
+  if(c==='paladino'){
+    const np=calcPrep(c,l,S.stats),op=calcPrep(c,ol,S.stats);S.prepSpells=np;
+    const maxSL=Math.ceil(l/4);
+    const allSp=[...(maxSL>=1?PAL_SPELLS[1]:[]),...(maxSL>=2?PAL_SPELLS[2]:[]),...(maxSL>=3?PAL_SPELLS[3]:[])];
+    html+=`<div class="panel"><div class="ptitle">📖 Magias Preparadas — Paladino</div>
+      <div class="info g">Você pode ter <strong>${np} magias preparadas</strong> = mod CAR (${modS(S.stats.cha)}) + nível÷2 (${Math.floor(l/2)}).${np>op?` <strong>+${np-op} a mais</strong> que antes.`:''}</div>
+      <div class="info">⚠ <strong>Magias do Juramento</strong> (${S.oathType?`Juramento de ${S.oathType}`:S.subclass||'seu juramento'}) ficam sempre preparadas e <strong>NÃO contam</strong> contra esse limite.</div>
+      <div class="info">Passe o mouse sobre cada magia para ver o que ela faz antes de escolher.</div>
+      <div class="orn">Marque as magias que deseja preparar</div>
+      <div class="spool">${allSp.map(s=>`<div class="stag-wrap"><span class="stag ${S.newSpells.includes(s.n)?'picked':''}" onclick="togSp('${s.n.replace(/'/g,"\\'")}',${np})">${s.n}</span>
+        <div class="stag-tip"><strong>${s.n}</strong><span style="color:var(--gold2);font-size:10px;font-family:'Inter'">${s.tags.join(' · ')}</span><br><span style="color:var(--green2)">${s.a} · ${s.al} · ${s.c}</span><br>${s.desc}${s.req?`<br><span style="color:var(--red)">⚠ ${s.req}</span>`:''}</div>
+      </div>`).join('')}</div>
+      <div class="info" id="sp-c">Marcadas: ${S.newSpells.length} de ${np}</div></div>`;
+  }
+
+  if(['clerigo','druida','mago'].includes(c)){
+    const np=calcPrep(c,l,S.stats),op=calcPrep(c,ol,S.stats);
+    html+=`<div class="panel"><div class="ptitle">📖 Magias Preparadas — ${CN[c]}</div>
+      <div class="info g">Você pode ter <strong>${np} magias preparadas</strong>${c==='mago'?` = mod INT (${modS(S.stats.int)}) + nível (${l})`:` = mod SAB (${modS(S.stats.wis)}) + nível (${l})`}.${np>op?` <strong>+${np-op}</strong> a mais que antes.`:''}</div>
+      ${c==='mago'?`<div class="info gr"><strong>Mago:</strong> Ao subir de nível, você adiciona <strong>2 magias</strong> ao Livro de Feitiços (qualquer nível disponível):<br><input class="fi sm" style="margin-top:8px" placeholder="Nova magia 1" value="${S.newSpells[0]||''}" oninput="S.newSpells[0]=this.value"><input class="fi sm" style="margin-top:8px" placeholder="Nova magia 2" value="${S.newSpells[1]||''}" oninput="S.newSpells[1]=this.value"></div>`:''}
+      ${c!=='mago'?`<div class="info">Você pode preparar qualquer combinação da lista de ${CN[c]} a cada descanso longo, sem custo. Anote no seu bloco quais usará hoje.</div>`:''}
+    </div>`;
+  }
+
+  if(isKnown(c)){
+    const nk=SPELLS_KNOWN[c]?.[l]||0,ok=SPELLS_KNOWN[c]?.[ol]||0,gain=nk-ok;
+    html+=`<div class="panel"><div class="ptitle">📚 Magias Conhecidas — ${CN[c]}</div>
+      <div class="info">Total de magias conhecidas no nível ${l}: <strong>${nk}</strong>${gain>0?` (+${gain} nova${gain>1?'s':''} magia${gain>1?'s':''})`:''}.</div>
+      ${gain>0?`<div class="info gr">Aprenda <strong>${gain}</strong> nova${gain>1?'s':''} magia${gain>1?'s':''}! Consulte a lista da sua classe e anote:<br>${[...Array(gain)].map((_,i)=>`<input class="fi sm" style="margin-top:8px" placeholder="Nova magia ${i+1}" value="${S.newSpells[i]||''}" oninput="S.newSpells[${i}]=this.value">`).join('')}</div>
+      <div class="info">Você também pode <strong>substituir 1 magia conhecida</strong> por outra do mesmo nível:<br><input class="fi sm" style="margin-top:8px" placeholder="Ex: Burning Hands → Shatter" value="${S.replaceSpell||''}" oninput="S.replaceSpell=this.value"></div>`:
+      `<div class="info">Nenhuma magia nova neste nível. Pode substituir 1 magia existente por outra:<br><input class="fi sm" style="margin-top:8px" placeholder="Substituição opcional" value="${S.replaceSpell||''}" oninput="S.replaceSpell=this.value"></div>`}
+    </div>`;
+  }
+
+  const ct=CANTRIPS_KNOWN[c]||{};
+  const ctL=Object.keys(ct).map(Number).sort((a,b)=>a-b);
+  if(ctL.includes(l)&&(ct[l]||0)>(ct[ctL[ctL.indexOf(l)-1]]||0)){
+    html+=`<div class="panel"><div class="ptitle">✨ Truque (Cantrip) Novo</div><div class="info gr">Você ganha <strong>+1 truque</strong> neste nível! Truques são lançados à vontade sem gastar espaços.<br><input class="fi sm" style="margin-top:8px" placeholder="Nome do novo truque" value="${S.newCantrips[0]||''}" oninput="S.newCantrips[0]=this.value"></div></div>`;
+  }
+
+  if(!html)html=`<div class="info">Nenhuma mudança mágica neste nível para ${CN[c]}.</div>`;
+  return`<div class="ey">Magias</div><div class="st">Progressão Mágica — Nível ${l}</div><div class="sd">Atualize espaços, magias preparadas/conhecidas e truques.</div>${html}`;
+}
+function togSp(n,max){
+  if(S.newSpells.includes(n))S.newSpells=S.newSpells.filter(x=>x!==n);
+  else if(S.newSpells.length<max)S.newSpells.push(n);
+  else{showToast(`Máximo ${max} magias preparadas!`);return;}
+  document.querySelectorAll('#cs .stag:not(.oath)').forEach(el=>el.classList.toggle('picked',S.newSpells.includes(el.textContent.trim())));
+  const c=document.getElementById('sp-c');if(c)c.textContent=`Marcadas: ${S.newSpells.length} de ${max}`;
+}
+
+function getFeats(){
+  const data=FEATURES[S.cls]||{},res=[],seen=new Set();
+  Object.entries(data).forEach(([k,arr])=>{if(parseInt(k)===S.newLevel)(Array.isArray(arr)?arr:[arr]).forEach(f=>{if(!seen.has(f.n)){seen.add(f.n);res.push(f);}});});
+  return res;
+}
+function getOathSp(){
+  if(!S.oathType)return[];
+  const o=Object.values(OATHS).find(o=>o.n===S.oathType);
+  return o?(o.spells[S.newLevel]||[]):[];
+}
+
+function rHabs(){
+  const feats=getFeats(),pnew=PB[S.newLevel],pch=pnew!==S.prof;
+  const oathSp=S.cls==='paladino'&&S.oathType?getOathSp():[];
+  return`<div class="ey">Novas Habilidades</div><div class="st">O que você ganha no Nível ${S.newLevel}</div><div class="sd">Todas as habilidades e poderes ao atingir este nível.</div>
+  ${pch?`<div class="fc new"><div class="fc-name">🛡 Bônus de Proficiência <span class="badge">Novo</span></div><div class="fc-desc">Aumenta de <strong>+${S.prof}</strong> para <strong style="color:var(--gold2)">+${pnew}</strong>.</div><div class="fc-detail"><p>O Bônus de Proficiência afeta: ataques com armas/magias com proficiência, testes de resistência com proficiência, e todas as perícias com proficiência. O aumento é automático.</p></div></div>`:''}
+  ${feats.map(f=>`<div class="fc new"><div class="fc-name">${f.icon||'⚔'} ${f.n} <span class="badge">Novo</span></div><div class="fc-desc">${f.desc}</div>${f.detail?`<div class="fc-detail"><p>${f.detail}</p></div>`:''}</div>`).join('')}
+  ${oathSp.length?`<div class="fc new"><div class="fc-name">📖 Magias do Juramento — Nível ${S.newLevel} <span class="badge" style="background:var(--gold)">Automático</span></div><div class="fc-desc">Adicionadas automaticamente: <strong>${oathSp.join(', ')}</strong>.</div><div class="fc-detail"><p>Essas magias ficam sempre preparadas e <strong>não contam</strong> contra seu limite. Bônus permanente enquanto manter o juramento.</p></div></div>`:''}
+  ${feats.length===0&&!pch&&oathSp.length===0?`<div class="info">Nenhuma habilidade de classe especial neste nível. Verifique habilidades de subclasse com seu Mestre.</div>`:''}
+  <div class="orn">✦ Resumo</div>
+  <div class="panel"><div class="g3">
+    <div class="sbox"><div class="sbox-lbl">Nível</div><div class="sbox-val">${S.level}</div><div class="sbox-mod">→ <span style="color:var(--gold2)">${S.newLevel}</span></div></div>
+    <div class="sbox"><div class="sbox-lbl">PV</div><div class="sbox-val">${S.hp}</div><div class="sbox-mod">→ <span style="color:var(--green2)">${S.newHP}</span></div></div>
+    <div class="sbox"><div class="sbox-lbl">Prof</div><div class="sbox-val">+${S.prof}</div><div class="sbox-mod">→ <span style="color:var(--gold2)">+${pnew}</span></div></div>
+  </div></div>`;
+}
+
+function compSt(k){let v=S.stats[k];if(!S.useFeat&&S.asiChoice==='plus2'&&S.asiStat1===k)v=Math.min(20,v+2);if(!S.useFeat&&S.asiChoice==='plus1x2'&&(S.asiStat1===k||S.asiStat2===k))v=Math.min(20,v+1);return v;}
+
+function rResumo(){
+  const pnew=PB[S.newLevel];
+  return`<div class="lubanner"><h2>Nível ${S.newLevel} Atingido!</h2><p>${S.name||'Seu personagem'} avança. A lenda cresce.</p></div>
+  <div class="sheet">
+    <div class="shead">
+      <div class="cname">${S.name}</div>
+      <div class="cid">${CN[S.cls]||S.cls} · ${S.race}${S.subrace?' ('+S.subrace+')':''}${S.background?' · '+S.background.replace(/_/g,' '):''}${S.subclassChoice?' · '+S.subclassChoice:S.subclass?' · '+S.subclass:''}</div>
+      <div class="lvlbadge">Nível ${S.newLevel}</div>
+    </div>
+    <div class="g6" style="margin-bottom:18px">${SK.map((k,i)=>{const nv=compSt(k);return`<div class="sbox"><div class="sbox-lbl">${SL[i]}</div><div class="sbox-val">${nv}</div><div class="sbox-mod">${modS(nv)}</div></div>`;}).join('')}</div>
+    <div class="g2" style="margin-bottom:14px">
+      <div class="sbox"><div class="sbox-lbl">Pontos de Vida</div><div class="sbox-val" style="color:var(--green2)">${S.newHP}</div><div class="sbox-mod">+${S.hpGained} PV ganhos</div></div>
+      <div class="sbox"><div class="sbox-lbl">Bônus de Prof.</div><div class="sbox-val" style="color:var(--gold2)">+${pnew}</div><div class="sbox-mod">${pnew!==S.prof?'atualizado':''}</div></div>
+    </div>
+    ${S.fightingStyle?`<div class="info g" style="margin-bottom:10px"><strong>Estilo de Combate:</strong> ${S.fightingStyle}</div>`:''}
+    ${S.pactChoice?`<div class="info g" style="margin-bottom:10px"><strong>Pacto:</strong> ${S.pactChoice}</div>`:''}
+    ${S.oathType?`<div class="info g" style="margin-bottom:10px"><strong>Juramento:</strong> Juramento de ${S.oathType}</div>`:''}
+    ${S.subclassChoice?`<div class="info" style="margin-bottom:10px"><strong>Subclasse:</strong> ${S.subclassChoice}</div>`:''}
+    ${S.featChoice?`<div class="info g" style="margin-bottom:10px"><strong>Talento:</strong> ${S.featChoice}</div>`:''}
+    ${S.asiStat1&&!S.useFeat?`<div class="info" style="margin-bottom:10px"><strong>Melhoria:</strong> ${S.asiChoice==='plus2'?SF[SK.indexOf(S.asiStat1)]+' +2':SF[SK.indexOf(S.asiStat1)]+' +1 / '+SF[SK.indexOf(S.asiStat2)]+' +1'}</div>`:''}
+    ${S.invocations.length?`<div class="info" style="margin-bottom:10px"><strong>Invocações:</strong> ${S.invocations.join(', ')}</div>`:''}
+    ${S.metamagic.length?`<div class="info" style="margin-bottom:10px"><strong>Metamagia:</strong> ${S.metamagic.join(', ')}</div>`:''}
+    ${S.newSpells.filter(Boolean).length?`<div class="info" style="margin-bottom:10px"><strong>Magias:</strong> ${S.newSpells.filter(Boolean).join(', ')}</div>`:''}
+    ${S.replaceSpell?`<div class="info" style="margin-bottom:10px"><strong>Substituição:</strong> ${S.replaceSpell}</div>`:''}
+    ${getOathSp().length?`<div class="info g" style="margin-bottom:10px"><strong>Magias do Juramento (automáticas):</strong> ${getOathSp().join(', ')}</div>`:''}
+    ${getFeats().map(f=>`<div class="info" style="margin-bottom:8px"><strong>${f.n}:</strong> ${f.desc}</div>`).join('')}
+  </div>
+  <div style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:12px;padding:20px 0 10px">
+    <button class="btn btn-g" onclick="levelAgain()" style="clip-path:none;border-radius:8px;padding:15px 38px">⬆ Subir para o Nível ${S.newLevel+1}</button>
+    <button class="btn btn-s" onclick="restart()" style="clip-path:none;border-radius:8px">↺ Novo Personagem</button>
+  </div>`;
+}
+
+function finalize(){
+  const pnew=PB[S.newLevel];
+  if(!S.useFeat&&S.asiChoice==='plus2'&&S.asiStat1)S.stats[S.asiStat1]=Math.min(20,S.stats[S.asiStat1]+2);
+  else if(!S.useFeat&&S.asiChoice==='plus1x2'&&S.asiStat1&&S.asiStat2){S.stats[S.asiStat1]=Math.min(20,S.stats[S.asiStat1]+1);S.stats[S.asiStat2]=Math.min(20,S.stats[S.asiStat2]+1);}
+  if(S.subclassChoice)S.subclass=S.subclassChoice;
+  S.hp=S.newHP;S.prof=pnew;S.level=S.newLevel;
+  S.steps=[...S.steps,'resumo'].filter((v,i,a)=>a.indexOf(v)===i);
+  S.curStep=S.steps.indexOf('resumo');
+  render();
+}
+function levelAgain(){
+  if(S.level>=20){showToast('Nível 20 atingido!');return;}
+  S.newLevel=S.level+1;S.newHP=0;S.hpGained=0;
+  S.asiChoice='';S.asiStat1='';S.asiStat2='';S.useFeat=false;S.featChoice='';
+  S.fightingStyle='';S.subclassChoice='';S.oathType='';
+  S.newSpells=[];S.newCantrips=[];S.replaceSpell='';
+  S.invocations=[];S.metamagic=[];S.pactChoice='';
+  buildSteps();S.curStep=1;render();
+}
+function restart(){
+  S={name:'',level:0,cls:'',race:'',subclass:'',stats:{str:10,dex:10,con:10,int:10,wis:10,cha:10},hp:0,prof:2,newHP:0,hpGained:0,asiChoice:'',asiStat1:'',asiStat2:'',useFeat:false,featChoice:'',fightingStyle:'',subclassChoice:'',oathType:'',newSpells:[],newCantrips:[],replaceSpell:'',invocations:[],metamagic:[],pactChoice:'',newLevel:0,steps:['personagem','pv','habilidades','resumo'],curStep:0,prepSpells:0};
+  render();
+}
+
+const SUBRACES = {
+  humano: [
+    {n:'Humano Padrão',desc:'Os humanos padrão recebem +1 em TODOS os seis atributos. Extremamente versáteis, sem fraquezas específicas.'},
+    {n:'Humano Variante',desc:'+1 em dois atributos à escolha, 1 perícia extra, e 1 TALENTO (Feat) gratuito no nível 1. A escolha mais poderosa mecanicamente — começar com um feat é uma grande vantagem.'},
+  ],
+  elfo: [
+    {n:'Alto Elfo',desc:'+2 DES, +1 INT. Proficiência em Percepção, visão no escuro 60ft, resistência a encantamento. Ganha 1 cantrip de mago. Armas: espada longa, espada curta, arco longo, arco curto.'},
+    {n:'Elfo da Floresta',desc:'+2 DES, +1 SAB. Proficiência em Percepção, visão no escuro 60ft, resistência a encantamento. Velocidade 35ft (mais rápido que outros). Pode se esconder em terreno natural levemente obstruído.'},
+    {n:'Elfo Negro (Drow)',desc:'+2 DES, +1 CAR. Visão no escuro SUPERIOR 120ft. Proficiência em armas drow. Magias: Luzes Dançantes + Fadas à vontade, Escuridão 1×/descanso longo. Desvantagem em testes de Percepção na luz solar.'},
+  ],
+  anao: [
+    {n:'Anão das Colinas',desc:'+2 CON, +1 SAB. PV extra = 1 por nível (anão resistente). Proficiência em machados de batalha, machados de mão, martelos de guerra. Resistência a veneno. Visão no escuro 60ft.'},
+    {n:'Anão das Montanhas',desc:'+2 CON, +2 FOR. Proficiência em armadura leve E média. Proficiência em armas de guerra anãs. Resistência a veneno. Visão no escuro 60ft. O único anão com bônus em Força.'},
+  ],
+  halfling: [
+    {n:'Pé-Leve',desc:'+2 DES, +1 CAR. Sortudo: rola novamente qualquer 1 natural em ataque/teste/TR. Bravo: vantagem em TR contra medo. Pode se esconder atrás de criaturas maiores. Ideal para ladinos.'},
+    {n:'Robusto',desc:'+2 DES, +1 CON. Sortudo. Bravo. Resistência a veneno e vantagem em TR contra veneno. O halfling mais resistente, melhor para classes de linha de frente.'},
+  ],
+  gnomo: [
+    {n:'Gnomo da Floresta',desc:'+2 INT, +1 DES. Ilusão Menor (cantrip) à vontade. Pode se comunicar com pequenos animais. Visão no escuro 60ft. Vantagem em TR de INT/SAB/CAR contra magia.'},
+    {n:'Gnomo das Rochas',desc:'+2 INT, +1 CON. Proficiência em ferramentas de artesão. Pode construir e reparar autômatos simples. Visão no escuro 60ft. Vantagem em TR de INT/SAB/CAR contra magia.'},
+  ],
+  'meio-elfo': [
+    {n:'Meio-Elfo (sem sub-raça)',desc:'+2 CAR, +1 em dois atributos À SUA ESCOLHA. Visão no escuro 60ft. Proficiência em 2 perícias à escolha. Resistência a encantamento. Extraordinariamente versátil — ideal para Paladino, Bardo e Feiticeiro.'},
+  ],
+  'meio-orc': [
+    {n:'Meio-Orc (sem sub-raça)',desc:'+2 FOR, +1 CON. Visão no escuro 60ft. Proficiência em Intimidação. Resistência Implacável: 1×/descanso longo, ao cair a 0 PV fica em 1 PV. Ataques Brutais: role 1 dado de dano extra em acertos críticos.'},
+  ],
+  tiefling: [
+    {n:'Tiefling Padrão (Asmodeu)',desc:'+1 INT, +2 CAR. Resistência a dano de fogo. Visão no escuro 60ft. Thaumaturgy cantrip. Nível 3: Hellish Rebuke (1×/descanso longo). Nível 5: Darkness (1×/descanso longo).'},
+    {n:'Tiefling de Baalzebul',desc:'+1 INT, +2 CAR. Thaumaturgy, Chill Touch (nível 3), Crown of Madness (nível 5). Temático para tieflings mais sombrios.'},
+    {n:'Tiefling de Dispater',desc:'+1 INT, +2 CAR. Thaumaturgy, Disguise Self (nível 3), Detect Thoughts (nível 5). Excelente para infiltração e espionagem.'},
+    {n:'Tiefling de Fierna',desc:'+1 SAB, +2 CAR. Friends cantrip, Charm Person (nível 3), Suggestion (nível 5). O tiefling mais social e manipulador.'},
+    {n:'Tiefling de Glasya',desc:'+1 INT, +2 CAR. Minor Illusion, Disguise Self (nível 3), Invisibility (nível 5). Ideal para ladinos e personagens furtivos.'},
+    {n:'Tiefling de Levistus',desc:'+1 CON, +2 CAR. Ray of Frost, Armor of Agathys (nível 3), Darkness (nível 5). Excelente para bruxos.'},
+    {n:'Tiefling de Mammon',desc:'+1 INT, +2 CAR. Mage Hand, Tensers Floating Disk (nível 3), Arcane Lock (nível 5). Mais utilitário.'},
+    {n:'Tiefling de Mephistopheles',desc:'+1 INT, +2 CAR. Mage Hand, Burning Hands (nível 3), Flame Blade (nível 5). Ofensivo com foco em fogo.'},
+    {n:'Tiefling de Zariel',desc:'+1 FOR, +2 CAR. Thaumaturgy, Searing Smite (nível 3), Branding Smite (nível 5). O tiefling mais adequado para Paladinos!'},
+  ],
+  draconato: [
+    {n:'Draconato Branco (Frio)',desc:'+2 FOR, +1 CAR. Sopro de Frio: cone de 15ft, dano frio, TR de CON. Resistência a frio. Visual: escamas brancas/prateadas.'},
+    {n:'Draconato Preto (Ácido)',desc:'+2 FOR, +1 CAR. Sopro de Ácido: linha de 5×30ft, dano ácido, TR de DEX. Resistência a ácido.'},
+    {n:'Draconato Azul (Raio)',desc:'+2 FOR, +1 CAR. Sopro de Raio: linha de 5×30ft, dano de raio, TR de DEX. Resistência a raio. Um dos mais populares.'},
+    {n:'Draconato Verde (Veneno)',desc:'+2 FOR, +1 CAR. Sopro de Veneno: cone de 15ft, dano de veneno, TR de CON. Resistência a veneno.'},
+    {n:'Draconato Vermelho (Fogo)',desc:'+2 FOR, +1 CAR. Sopro de Fogo: cone de 15ft, dano de fogo, TR de DEX. Resistência a fogo. O mais icônico e popular.'},
+    {n:'Draconato Cobre (Ácido)',desc:'+2 FOR, +1 CAR. Sopro de Ácido: linha de 5×30ft, dano ácido, TR de DEX. Resistência a ácido.'},
+    {n:'Draconato Dourado (Fogo)',desc:'+2 FOR, +1 CAR. Sopro de Fogo: cone de 15ft, dano de fogo, TR de DEX. Resistência a fogo. Visual nobre e majestoso.'},
+    {n:'Draconato Bronze (Raio)',desc:'+2 FOR, +1 CAR. Sopro de Raio: linha de 5×30ft, dano de raio, TR de DEX. Resistência a raio.'},
+    {n:'Draconato Prata (Frio)',desc:'+2 FOR, +1 CAR. Sopro de Frio: cone de 15ft, dano frio, TR de CON. Resistência a frio.'},
+    {n:'Draconato Latão (Fogo)',desc:'+2 FOR, +1 CAR. Sopro de Fogo: cone de 15ft, dano de fogo, TR de DEX. Resistência a fogo.'},
+  ],
+  tabaxi: [
+    {n:'Tabaxi (sem sub-raça)',desc:'+2 DES, +1 CAR. Velocidade 30ft + escalar 20ft. Garras: 1d4 de dano cortante nos ataques desarmados. Foco Felino: 1×/descanso curto, dobra velocidade por 1 turno. Visão no escuro 60ft. Proficiência em Furtividade e Percepção. Excelente para Ladinos, Bardos e Patrulheiros.'},
+  ],
+  halfling_luckfoot: [],
+};
+
+function getSubraceOpts(race) {
+  const subs = SUBRACES[race] || [];
+  if (!subs.length) return '<option value="">Esta raça não possui sub-raça</option>';
+  return '<option value="">Selecione a sub-raça</option>' +
+    subs.map(s => `<option value="${s.n}">${s.n}</option>`).join('');
+}
+
+
+function buildSubraceSelect(race, selectedVal) {
+  const subs = SUBRACES[race] || [];
+  if (!subs.length) return '<option value="">Esta raça não possui sub-raça</option>';
+  let opts = '<option value="">Selecione a sub-raça</option>';
+  subs.forEach(s => {
+    opts += `<option value="${s.n}"${selectedVal===s.n?' selected':''}>${s.n}</option>`;
+  });
+  return opts;
+}
+
+
+function updBackground() {
+  const el = document.getElementById('c-background');
+  const descEl = document.getElementById('bg-desc');
+  if (!el || !descEl) return;
+  const key = el.value;
+  const bg = BACKGROUNDS[key];
+  if (bg) {
+    descEl.style.display = 'block';
+    const extras = [
+      bg.pericias   ? `<strong>Perícias:</strong> ${bg.pericias}` : '',
+      bg.idiomas    ? `<strong>Idiomas:</strong> ${bg.idiomas}` : '',
+      bg.ferramentas? `<strong>Ferramentas:</strong> ${bg.ferramentas}` : '',
+      bg.equip      ? `<strong>Equipamento:</strong> ${bg.equip}` : '',
+      bg.feature    ? `<strong>Característica:</strong> ${bg.feature}` : '',
+    ].filter(Boolean).join('<br>');
+    descEl.innerHTML = `<div class="info g"><strong>${bg.icon} ${key.replace(/_/g,' ')}</strong><br>${bg.desc}<br><br>${extras}<div class="tag-row">${bg.tags.map(t=>'<span class="tag tg">'+t+'</span>').join('')}</div></div>`;
+  } else {
+    descEl.style.display = 'none';
+  }
+}
+
+function updSubraceSelect(race) {
+  const subraceEl = document.getElementById('c-subrace');
+  const descEl = document.getElementById('subrace-desc');
+  if (!subraceEl) return;
+  subraceEl.innerHTML = buildSubraceSelect(race, '');
+  if (descEl) descEl.style.display = 'none';
+}
+function updSubrace() {
+  const raceEl = document.getElementById('c-race');
+  const subraceEl = document.getElementById('c-subrace');
+  const descEl = document.getElementById('subrace-desc');
+  if (!subraceEl || !descEl) return;
+  const race = raceEl?.value || S.race;
+  const val = subraceEl.value;
+  const subs = SUBRACES[race] || [];
+  const found = subs.find(s => s.n === val);
+  if (found) {
+    descEl.style.display = 'block';
+    descEl.innerHTML = `<div class="info gr"><strong>${found.n}:</strong> ${found.desc}</div>`;
+  } else {
+    descEl.style.display = 'none';
+  }
+}
+
+
+const BACKGROUNDS = {
+  acólito: {
+    icon: '⛪', tags: ['Social', 'Religioso', 'Suporte'],
+    desc: 'Você passou sua vida a serviço de um templo. Conhece rituais sagrados, tem acesso a recursos religiosos e é respeitado pelo clero.',
+    pericias: 'Intuição, Religião',
+    idiomas: '2 idiomas à escolha',
+    equip: 'Símbolo sagrado, livro de orações, 5 velas, vestes, 15po',
+    feature: 'Abrigo dos Fiéis: templos da sua religião fornecem cura, descanso e recursos gratuitos para você e seu grupo.',
+  },
+  criminoso: {
+    icon: '🗡', tags: ['Furtivo', 'Urbano', 'Contatos'],
+    desc: 'Você tem experiência com o lado sombrio da sociedade: contatos no submundo, habilidade com crimes e acesso a redes ilegais.',
+    pericias: 'Enganação, Furtividade',
+    ferramentas: 'Ferramentas de ladrão, um jogo de azar',
+    equip: 'Pé de cabra, roupas escuras, bolsa com 15po',
+    feature: 'Contato Criminal: você conhece um contato no submundo que pode fornecer informações, contratos ou conexões.',
+  },
+  heroi_do_povo: {
+    icon: '🌾', tags: ['Social', 'Povo', 'Resistência'],
+    desc: 'Você veio do povo comum e fez algo extraordinário. Aldeões e fazendeiros te respeitam e te oferecem ajuda.',
+    pericias: 'Lidar com Animais, Sobrevivência',
+    ferramentas: 'Ferramentas de artesão, veículos terrestres',
+    equip: 'Ferramentas de artesão, pá, ferro de marcar, roupas comuns, 10po',
+    feature: 'Hospitalidade Rústica: o povo comum sempre oferece ajuda: abrigo, comida e informações, e guarda seus segredos.',
+  },
+  nobre: {
+    icon: '👑', tags: ['Social', 'Rico', 'Influência'],
+    desc: 'Você nasceu na nobreza. Tem posição social, riqueza herdada, títulos e acesso à alta sociedade e à política.',
+    pericias: 'História, Persuasão',
+    idiomas: '1 idioma à escolha',
+    ferramentas: 'Jogo de xadrez ou outro jogo de estratégia',
+    equip: 'Roupas finas, anel com brasão, carta de nobreza, 25po',
+    feature: 'Posição de Privilégio: sua nobreza abre portas. Pode ser recebido em cortes, obter audiências e ser tratado com deferência.',
+  },
+  sage: {
+    icon: '📚', tags: ['Conhecimento', 'Acadêmico', 'Pesquisa'],
+    desc: 'Você passou anos em bibliotecas e universidades estudando textos antigos. É uma fonte de conhecimento e sabe onde buscar informações.',
+    pericias: 'Arcanismo, História',
+    idiomas: '2 idiomas à escolha',
+    equip: 'Garrafa de tinta, pena, faca, carta de um colega morto, roupas comuns, 10po',
+    feature: 'Pesquisador: se não sabe algo, sabe onde e com quem encontrar a informação. Pode não ser grátis, mas você sabe buscar.',
+  },
+  soldado: {
+    icon: '⚔', tags: ['Combate', 'Militar', 'Disciplina'],
+    desc: 'Você serviu em um exército ou força militar. Conhece táticas, hierarquia e o que é necessário para sobreviver em campo de batalha.',
+    pericias: 'Atletismo, Intimidação',
+    ferramentas: 'Veículos terrestres, jogo de azar',
+    equip: 'Insígnia de posto, troféu de inimigo, dados de osso, roupas comuns, 10po',
+    feature: 'Posição Militar: soldados reconhecem seu posto. Você tem acesso a acampamentos militares e é tratado com respeito por oficiais.',
+  },
+  viajante: {
+    icon: '🌍', tags: ['Exploração', 'Versatilidade', 'Sobrevivência'],
+    desc: 'Você cresceu em um ambiente selvagem, longe da civilização. Sabe sobreviver em qualquer clima e ler os sinais da natureza.',
+    pericias: 'Atletismo, Sobrevivência',
+    idiomas: '1 idioma à escolha',
+    ferramentas: 'Veículos terrestres',
+    equip: 'Cajado, armadilha de caça, troféu de animal, mapa da região natal, roupas de viajante, 10po',
+    feature: 'Memória Geográfica: você tem memória excelente de mapas e terrenos. Sempre lembra de onde esteve e pode encontrar comida para até 5 pessoas.',
+  },
+  artista: {
+    icon: '🎭', tags: ['Social', 'Performance', 'Entretenimento'],
+    desc: 'Você é um artista — ator, músico, dançarino ou acrobata. Sabe como entreter multidões e usar o palco para obter o que quer.',
+    pericias: 'Acrobacia, Performance',
+    ferramentas: 'Kit de disfarce, instrumento musical',
+    equip: 'Instrumento musical, favor de um admirador, fantasia, 15po',
+    feature: 'Notoriedade: em qualquer cidade com teatros ou tavernas, você e seu grupo podem se apresentar em troca de abrigo e comida.',
+  },
+  charlatan: {
+    icon: '🃏', tags: ['Enganação', 'Social', 'Golpista'],
+    desc: 'Você é um mestre da falsidade: documentos falsos, identidades fabricadas e o talento para dizer exatamente o que alguém quer ouvir.',
+    pericias: 'Enganação, Prestidigitação',
+    ferramentas: 'Kit de disfarce, ferramentas de falsificação',
+    equip: 'Roupas finas, kit de disfarce, ferramentas de falsificação, 15po',
+    feature: 'Identidade Falsa: você tem uma segunda identidade completamente documentada — história, papéis e contatos. Pode criar documentos falsos.',
+  },
+  ermitao: {
+    icon: '🧘', tags: ['Isolamento', 'Sabedoria', 'Espiritual'],
+    desc: 'Você viveu em isolamento por meses ou anos — em mosteiro, floresta ou deserto. Encontrou paz interior e talvez revelações profundas.',
+    pericias: 'Medicina, Religião',
+    ferramentas: 'Kit de ervas medicinais',
+    idiomas: '1 idioma à escolha',
+    equip: 'Estojo com anotações, cobertor de inverno, roupas comuns, kit de ervas, 5po',
+    feature: 'Descoberta: você descobriu algo em seu isolamento — um segredo cósmico, um local sagrado ou uma verdade esquecida. Trabalhe com seu Mestre.',
+  },
+  forasteiro: {
+    icon: '🏕', tags: ['Natureza', 'Exploração', 'Sobrevivência'],
+    desc: 'Você cresceu nas terras selvagens. A civilização é estranha para você, mas você conhece florestas, montanhas e planícies como ninguém.',
+    pericias: 'Atletismo, Sobrevivência',
+    idiomas: '1 idioma à escolha',
+    ferramentas: 'Instrumento musical',
+    equip: 'Cajado, armadilha de caça, roupas de viajante, 10po',
+    feature: 'Andarilho: você tem excelente memória geográfica. Pode encontrar comida, água e abrigo para seu grupo em qualquer clima natural.',
+  },
+  marinheiro: {
+    icon: '⚓', tags: ['Naval', 'Viagem', 'Dureza'],
+    desc: 'Você passou anos em alto mar. Conhece navegação, manutenção de navios e a vida dura dos mares. Tem contatos em portos por todo o mundo.',
+    pericias: 'Atletismo, Percepção',
+    ferramentas: 'Ferramentas de navegador, veículos aquáticos',
+    equip: 'Corda de seda (50ft), talismã de boa sorte, roupas comuns, 10po',
+    feature: 'Passagem Garantida: você e seu grupo podem viajar de graça em qualquer navio em troca de trabalho. Tem acesso a portos e marinheiros.',
+  },
+  fora_da_lei: {
+    icon: '🔥', tags: ['Furtivo', 'Urbano', 'Perigoso'],
+    desc: 'Você é procurado pela lei em algum lugar — por crime, rebelião ou simplesmente por estar no lugar errado. Sobreviveu às margens da sociedade.',
+    pericias: 'Enganação, Furtividade',
+    ferramentas: 'Ferramentas de ladrão, kit de disfarce',
+    equip: 'Kit de disfarce, ferramentas de ladrão, roupas comuns, 15po',
+    feature: 'Vida nas Sombras: você tem acesso à rede do submundo. Em qualquer cidade, pode encontrar um esconderijo, obter informações ou contatos criminosos.',
+  },
+  guilda: {
+    icon: '🔨', tags: ['Artesanato', 'Comércio', 'Conexões'],
+    desc: 'Você é membro de uma guilda de artesãos ou mercadores. Tem habilidades profissionais, uma rede de contatos comerciais e um salário fixo.',
+    pericias: 'Intuição, Persuasão',
+    idiomas: '1 idioma à escolha',
+    ferramentas: 'Ferramentas de artesão (à escolha)',
+    equip: 'Ferramentas de artesão, carta de apresentação da guilda, roupas de viajante, 15po',
+    feature: 'Membro da Guilda: a guilda oferece abrigo, assistência jurídica e recursos para membros. Em troca, 5po por mês para a guilda.',
+  },
+};
+
+function initParticles(){
+  const ct=document.getElementById('particles');
+  ['#9B6DFF','#C8952A','#5A2E8A','#BFA0FF','#E8C060'].forEach(col=>{
+    for(let i=0;i<6;i++){const p=document.createElement('div');p.className='particle';const sz=Math.random()*4+2;p.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;background:${col};animation-duration:${Math.random()*12+8}s;animation-delay:${Math.random()*8}s;`;ct.appendChild(p);}
+  });
+}
+window.addEventListener('DOMContentLoaded',()=>{
+  initParticles();
+  S.steps=['personagem','pv','habilidades','resumo'];
+  render();
+});
+
+</script>
+</body>
+</html>
